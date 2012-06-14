@@ -15,6 +15,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#THIS IS necessary settings for django-registration!!
+ACCOUNT_ACTIVATION_DAYS = 7
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
