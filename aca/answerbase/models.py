@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib import admin
 
 # Create your models here.
 class Question(models.Model):
@@ -19,5 +21,10 @@ class Answer(models.Model):
     votes = models.IntegerField()
     def __unicode__(self):
         return self.answer
+
+"""class UserProfile(models.Model):
+    created = models.DateField(auto_now=True)
+    """
+    
 
 
