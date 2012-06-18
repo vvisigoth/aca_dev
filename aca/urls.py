@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^questions/$', 'answerbase.views.index'),
     url(r'^accounts/', include('registration.urls')),
+    url(r'^post/$', 'answerbase.views.post'),
+    url(r'^post/post_submit', 'answerbase.views.post_submit'),
     # url(r'^$', 'aca.views.home', name='home'),
     # url(r'^aca/', include('aca.foo.urls')),
 

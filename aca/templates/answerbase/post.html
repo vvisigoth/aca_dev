@@ -1,0 +1,11 @@
+{% for post in posts %}
+{{ post.post }}
+<br>
+{% endfor %}
+<form action="post_submit" method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    <label for="post">post</label><input type="text" name="post" value="" id="post">    
+
+
+<p><input type="submit" value="Continue &rarr;"></p>
+</form>

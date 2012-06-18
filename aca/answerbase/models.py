@@ -4,6 +4,11 @@ from django.contrib import admin
 from django.db.models.signals import post_save
 
 # Create your models here.
+#Just for testing the post form
+
+class Post(models.Model):
+    post = models.CharField(max_length=200)
+
 class Question(models.Model):
     #askedBy = models.CharField(max_length=200)
     askedBy = models.ForeignKey(User, blank=True, null=True)
@@ -30,10 +35,10 @@ class UserProfile(models.Model):
     user=models.ForeignKey(User, unique=True)
     bio=models.CharField(max_length=500)
     playlist=models.CharField(max_length=500)
-    #votesCast=models.IntegerField()
-    #ups=models.IntegerField()
-    #downs=models.IntegerField()
-    #rep=models.IntegerField()
+    votesCast=models.IntegerField(default=0)
+    ups=models.IntegerField(default=0)
+    downs=models.IntegerField(default=0)
+    rep=models.IntegerField(default=10)
     followers=models.CommaSeparatedIntegerField(max_length=500)
     questionsFollowing=models.CommaSeparatedIntegerField(max_length=500)
     usersFollowing=models.CommaSeparatedIntegerField(max_length=500)
