@@ -5,10 +5,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<title>Answer Base Wireframe</title>
+	<title>Answer Base</title>
     <link rel="shortcut icon" href="/Users/anthonyarroyo/Desktop/_FliptProject/favicon.ico">
-    <link href='fliptstyle.css' rel='stylesheet' type='text/css'/>
-    <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
+    <link href='{{ MEDIA_URL }}/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
+    <link href='http://ajax.go:gleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
 </head>
@@ -28,27 +28,13 @@
         </div>
         <div id="content" class="col-full">
             <div id="main" class="fullwidth">
-                <div id="singleAnswerContentMain" class="results">
-                    <h2 id="answerListHeader1">Answer</h2>
-                    <div id="questionExcerpt">
-                        Let me just explain the question a little bit.
-                    </div>
-                        <div id="answers">
-                            <div id="1" class="answer">
-                                <div class="voteBox">
-                                    <span class="up">up</span><span class="votes">9</span><span class="down">down</span>
-                            </div>
-                            <li class="answertitle">an answer</li><br><span class="answeredBy">answeredby</span>
-                        </div>
-                        </div>
-
-                    <form id="newAnswerSubmit" action="newAnswerSubmit" method="post" accept-charset="utf-8">
-                        <textarea></textarea> 
-                    
-                    
-                    <p><input id="newAnswerSubmitButton" type="submit" value="Answer" />
-                    <input id="newAnswerCancelButton" type="button" value="Whoops" /></p>
-                    </form>
+                <div id="answerContentMain" class="results">
+                    <h2 id="answerListHeader">Recently Asked Questions</h2>
+                    <ul id="answerContentMainUl">
+                        {% for question in question_list %}
+                        <li id="" class="answerTitle">{{ question.question }}</li><ul><li class="answerExcerpt">{{ question.explanation }}<span class=askedOn>{{ question.askedOn }}</span></li></ul>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div id="answerSidebar" class="sidebarResults">
                     <div class="sidebarMenu">
