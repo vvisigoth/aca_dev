@@ -37,7 +37,7 @@
                             {% for answer in answers %}
                             <div id="1" class="answer">
                                 <div class="voteBox">
-                                    <span class="up">up</span><span class="votes">9</span><span class="down">down</span>
+                                    <span class="up">up</span><span class="votes">{{ answer.votes }}</span><span class="down">down</span>
                             </div>
                             <li class="answertitle">{{ answer.answer }}</li><br><span class="answeredBy">{{ answer.answeredBy }}</span>
                             </div>

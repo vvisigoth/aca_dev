@@ -15,8 +15,8 @@ class Question(models.Model):
     askedOn = models.DateTimeField(auto_now=True)
     question = models.CharField(max_length=1000)
     explanation = models.CharField(max_length=1000)
-    #votes = models.IntegerField()
-    #followers = models.CharField(max_length=1000)
+    votes = models.IntegerField(default=0)
+    followers = models.CharField(max_length=1000)
     def __unicode__(self):
         return self.question
 
@@ -26,7 +26,7 @@ class Answer(models.Model):
     answeredBy = models.ForeignKey(User, blank=True, null=True)
     answeredOn = models.DateTimeField(auto_now=True)
     answer = models.CharField(max_length=1000)
-    #votes = models.IntegerField()
+    votes = models.IntegerField(default=0)
     def __unicode__(self):
         return self.answer
 

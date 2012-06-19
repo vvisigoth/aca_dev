@@ -41,3 +41,31 @@ def post_submit(request):
     p = Post(post = request.POST['post'])
     p.save()
     return HttpResponseRedirect(reverse('answerbase.views.post'))
+
+#VOTES
+
+def q_voteup(pk, author):
+    q = Question.objects.get(pk=pk)
+    q.votes += 1
+    q.save()
+    return 
+
+
+def q_votedown(pk, author):
+    q = Question.objects.get(pk=pk)
+    q.votes -= 1
+    q.save()
+    return 
+
+def a_voteup(pk, author):
+    a = Answer.objects.get(pk=pk)
+    a.votes += 1
+    a.save()
+    return 
+
+
+def a_votedown(pk, author):
+    a = Answer.objects.get(pk=pk)
+    a.votes -= 1
+    a.save()
+    return 
