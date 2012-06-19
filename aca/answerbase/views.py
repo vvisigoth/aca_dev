@@ -22,7 +22,7 @@ def newquestionsubmit(request):
 
 def question(request, q_id):
     question = Question.objects.get(id=q_id)
-    answers = question.answer_set.all()
+    answers = question.answer_set.all().order_by('-votes')
     user = request.user
     return render_to_response('answerbase/question.html', {'question':question, 'answers': answers}, context_instance=RequestContext(request))
 
