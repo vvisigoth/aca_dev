@@ -7,8 +7,9 @@ from django.core.urlresolvers import reverse
 
 # Create your views here.
 def index(request):
+    user = request.user
     question_list = Question.objects.all()
-    return render_to_response('answerbase/answerbaseindex.html', {'question_list': question_list })
+    return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list })
 
 def newquestion(request):
     user = request.user

@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.http import HttpResponseRedirect
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
@@ -15,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('registration.urls')),
     url(r'^post/$', 'answerbase.views.post'),
     url(r'^post/post_submit', 'answerbase.views.post_submit'),
-    #url(r'^profiles', 'answerbase.
+    url(r'^accounts/profile', lambda x: HttpResponseRedirect('/questions/')),
     # url(r'^$', 'aca.views.home', name='home'),
     # url(r'^aca/', include('aca.foo.urls')),
 
