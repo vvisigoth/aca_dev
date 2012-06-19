@@ -5,9 +5,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<title>Answer Base Wireframe</title>
+    <title>{{ question.question }}</title>
     <link rel="shortcut icon" href="/Users/anthonyarroyo/Desktop/_FliptProject/favicon.ico">
-    <link href='fliptstyle.css' rel='stylesheet' type='text/css'/>
+    <link href='/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
     <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
@@ -29,21 +29,24 @@
         <div id="content" class="col-full">
             <div id="main" class="fullwidth">
                 <div id="singleAnswerContentMain" class="results">
-                    <h2 id="answerListHeader1">Answer</h2>
+                    <h2 id="answerListHeader1">{{ question.question }}</h2>
                     <div id="questionExcerpt">
-                        Let me just explain the question a little bit.
+                        {{ question.explanation }}
                     </div>
                         <div id="answers">
+                            {% for answer in answers %}
                             <div id="1" class="answer">
                                 <div class="voteBox">
                                     <span class="up">up</span><span class="votes">9</span><span class="down">down</span>
                             </div>
-                            <li class="answertitle">an answer</li><br><span class="answeredBy">answeredby</span>
-                        </div>
+                            <li class="answertitle">{{ answer.answer }}</li><br><span class="answeredBy">{{ answer.answeredBy }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
 
-                    <form id="newAnswerSubmit" action="newAnswerSubmit" method="post" accept-charset="utf-8">
-                        <textarea></textarea> 
+                        <form id="newAnswerSubmit" action="newanswersubmit/{{ question.id }}" method="post" accept-charset="utf-8">
+                            {% csrf_token %}
+                        <textarea id= "newanswer" name="newanswer"></textarea> 
                     
                     
                     <p><input id="newAnswerSubmitButton" type="submit" value="Answer" />

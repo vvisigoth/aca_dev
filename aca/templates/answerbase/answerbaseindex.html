@@ -29,10 +29,12 @@
         <div id="content" class="col-full">
             <div id="main" class="fullwidth">
                 <div id="answerContentMain" class="results">
-                    <h2 id="answerListHeader">Recently Asked Questions</h2>
+                    <h2 id="answerListHeader">Recently Asked Questions </h2>
+                    <br>
+                    <a href="/newquestion" id="newQuestionLink">Ask a New Question</a>
                     <ul id="answerContentMainUl">
                         {% for question in question_list %}
-                        <li id="" class="answerTitle">{{ question.question }}</li><ul><li class="answerExcerpt">{{ question.explanation }}<span class=askedOn>{{ question.askedOn }}</span></li></ul>
+                        <li id="" class="answerTitle"><a href="/question/{{ question.id }}">{{ question.question }}</a></li><ul><li class="answerExcerpt">{{ question.explanation }}<span class=askedOn>{{ question.askedOn }}</span></li></ul>
                         {% endfor %}
                     </ul>
                 </div>

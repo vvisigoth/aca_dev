@@ -406,7 +406,7 @@ span.up {
 #newQuestionSubscribe input[type="checkbox"] {
 }
 
-#questionBar #questionSubmit, #newQuestionSubmit, #newQuestionCancel, #newAnswerSubmitButton, #newAnswerCancelButton {
+#questionBar #questionSubmit, #newQuestionSubmit, #newQuestionCancel, #newAnswerSubmitButton, #newAnswerCancelButton, #newQuestionLink, #newQuestionCancelLink {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;  
@@ -425,6 +425,17 @@ span.up {
     font-size: 1em;
     border: 0;
     margin-bottom: 5px;
+}
+#newQuestionLink {
+    padding: .2em;
+    color: black;
+    float: right;
+}
+#newQuestionCancelLink {
+    text-decoration: none;
+    display: inline;
+    color: black;
+    padding: .2em;
 }
 #questionBar #questionSubmit:active, #newQuestionSubmit:active, #newQuestionCancel:active, #newAnswerSubmitButton:active, #newAnswerCancelButton:active {
     -moz-box-shadow: 0 0 0 0;

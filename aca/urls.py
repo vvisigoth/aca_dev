@@ -9,10 +9,13 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^questions/$', 'answerbase.views.index'),
     url(r'^newquestion/$', 'answerbase.views.newquestion'),
+    url(r'^question/(?P<q_id>\d+)', 'answerbase.views.question'),
+    url(r'^question/newanswersubmit/(?P<q_id>\d+)', 'answerbase.views.newanswersubmit'),
     url(r'^newquestion/newquestionsubmit', 'answerbase.views.newquestionsubmit'),
     url(r'^accounts/', include('registration.urls')),
     url(r'^post/$', 'answerbase.views.post'),
     url(r'^post/post_submit', 'answerbase.views.post_submit'),
+    #url(r'^profiles', 'answerbase.
     # url(r'^$', 'aca.views.home', name='home'),
     # url(r'^aca/', include('aca.foo.urls')),
 

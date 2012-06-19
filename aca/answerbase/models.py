@@ -11,8 +11,8 @@ class Post(models.Model):
 
 class Question(models.Model):
     #askedBy = models.CharField(max_length=200)
-    #askedBy = models.ForeignKey(User, blank=True, null=True)
-    askedOn = models.DateField(auto_now=True)
+    askedBy = models.ForeignKey(User, blank=True, null=True)
+    askedOn = models.DateTimeField(auto_now=True)
     question = models.CharField(max_length=1000)
     explanation = models.CharField(max_length=1000)
     #votes = models.IntegerField()
@@ -23,8 +23,8 @@ class Question(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question)
     #answeredBy = models.CharField(max_length=200)
-    #answeredBy = models.ForeignKey(User, blank=True, null=True)
-    answeredOn = models.DateField(auto_now=True)
+    answeredBy = models.ForeignKey(User, blank=True, null=True)
+    answeredOn = models.DateTimeField(auto_now=True)
     answer = models.CharField(max_length=1000)
     #votes = models.IntegerField()
     def __unicode__(self):
