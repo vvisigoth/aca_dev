@@ -19,6 +19,8 @@ class Question(models.Model):
     followers = models.CharField(max_length=1000)
     def __unicode__(self):
         return self.question
+    def get_absolute_url(self):
+        return "/question/%i" % self.id
 
 class Answer(models.Model):
     question = models.ForeignKey(Question)
@@ -27,8 +29,36 @@ class Answer(models.Model):
     answeredOn = models.DateTimeField(auto_now=True)
     answer = models.CharField(max_length=1000)
     votes = models.IntegerField(default=0)
+
     def __unicode__(self):
         return self.answer
+
+    def get_absolute_url(self):
+        return "/question/%i" % self.question.id
+
+    def voteup(self):
+        a = self
+        a.votes += 1
+        a.save()
+        try:
+            p = UserProfile.objects.get(user = self.answeredBy)
+            p.rep += 1
+            p.save()
+            return "votes", a.votes, " user", p, " rep", p.rep
+        except:
+            return "NOBODY"
+
+    def votedown(self):
+        a = self
+        a.votes -= 1
+        a.save()
+        try:
+            p = UserProfile.objects.get(user = self.answeredBy)
+            p.rep -= 1
+            p.save()
+            return "votes", a.votes, " user", p, " rep", p.rep
+        except:
+            return "NOBODY"
 
 class UserProfile(models.Model):
     created = models.DateField(auto_now=True)

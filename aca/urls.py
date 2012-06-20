@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^$', 'answerbase.views.index'),
     url(r'^questions/$', 'answerbase.views.index'),
     url(r'^newquestion/$', 'answerbase.views.newquestion'),
     url(r'^question/(?P<q_id>\d+)', 'answerbase.views.question'),
@@ -17,6 +18,9 @@ urlpatterns = patterns('',
     url(r'^post/$', 'answerbase.views.post'),
     url(r'^post/post_submit', 'answerbase.views.post_submit'),
     url(r'^accounts/profile', lambda x: HttpResponseRedirect('/questions/')),
+    url(r'^search/', include('haystack.urls')),
+    url(r'^autocomplete/', 'answerbase.views.autocomplete'),
+    url(r'^searchjson/', 'answerbase.views.searchjson'),
     # url(r'^$', 'aca.views.home', name='home'),
     # url(r'^aca/', include('aca.foo.urls')),
 

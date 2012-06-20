@@ -22,7 +22,11 @@
                     <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
                     <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/answerbaseprototype.html" class="thisPage">Answers</a></li>
                     <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/coursetheaterprototype.html">Course</a></li>
-                    <li><a href="">{{ user }}</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="">{{ user.username }}</a></li>
+                    {% else %}
+                    <li><a href="/accounts/login">Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

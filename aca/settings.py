@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'haystack',
     'answerbase',
     'registration',
 )
@@ -155,3 +156,8 @@ LOGGING = {
         },
     }
 }
+HAYSTACK_SITECONF = 'aca.site_search'
+
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+
+HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
