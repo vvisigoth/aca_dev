@@ -55,7 +55,7 @@ def searchjson(request):
         if request.GET.has_key(u'q'):
             value = request.GET[u'q']
             if len(value) > 2:
-                ## Could probably just use the non-autocomplete, because this might return too many results
+                ## Could probably just use the non-autocomplete ver of SearchQuerySet, because this might return too many results
                 model_results =SearchQuerySet().autocomplete(content_auto=value)
             ##Heres where you define the format of JSON
                 results = [ { 'title': str(x.object.__unicode__()), 'url': x.object.get_absolute_url() } for x in model_results ]
@@ -74,28 +74,25 @@ def post_submit(request):
 
 #VOTES
 
-def q_voteup(pk, author):
-    q = Question.objects.get(pk=pk)
-    q.votes += 1
-    q.save()
-    return 
+def vote(request):
+    user = request.user
+    return render_to_response('answerbase/vote.html',{'user':user}, context_instance=RequestContext(request))
 
+def votesubmit(request):
+    dest = request.POST['dest']
+    a_id = request.POST['a_id']
+    direction = request.POST['direction']
+    if dest == "answer":
+        if direction == "up":
+            Answer.objects.get(pk=a_id).voteup()
+        else:
+            Answer.objects.get(pk=a_id).votedown()
+    else:
+        """
+        if direction == "up":
+            Question.objects.get(pk=a_id).voteup()
+        else:
+            Question.objects.get(pk=a_id).votedown()
+            """
 
-def q_votedown(pk, author):
-    q = Question.objects.get(pk=pk)
-    q.votes -= 1
-    q.save()
-    return 
-
-def a_voteup(pk, author):
-    a = Answer.objects.get(pk=pk)
-    a.votes += 1
-    a.save()
-    return 
-
-
-def a_votedown(pk, author):
-    a = Answer.objects.get(pk=pk)
-    a.votes -= 1
-    a.save()
-    return 
+    return HttpResponse('hey, %s, you successfully voted %s %s %s' % (request.user, dest, a_id, direction))

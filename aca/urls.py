@@ -21,6 +21,8 @@ urlpatterns = patterns('',
     url(r'^search/', include('haystack.urls')),
     url(r'^autocomplete/', 'answerbase.views.autocomplete'),
     url(r'^searchjson/', 'answerbase.views.searchjson'),
+    url(r'^vote/$', 'answerbase.views.vote'),
+    url(r'^vote/votesubmit', 'answerbase.views.votesubmit'),
     # url(r'^$', 'aca.views.home', name='home'),
     # url(r'^aca/', include('aca.foo.urls')),
 

@@ -1,0 +1,13 @@
+<form action="votesubmit" method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    <label for="a_id">id</label>
+    <input type="text" name="a_id" value="">
+    <label for="dest">dest</label>
+    <input type="text" name="dest" value="">
+    <label for="direction">direction</label>
+    <input type="text" name="direction" value="">
+    
+
+
+<p><input type="submit" value="Continue &rarr;"></p>
+</form>
