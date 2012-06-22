@@ -29,6 +29,8 @@ class Answer(models.Model):
     answeredOn = models.DateTimeField(auto_now=True)
     answer = models.CharField(max_length=1000)
     votes = models.IntegerField(default=0)
+    #to keep track of Users that have voted
+    voted = models.CharField(max_length=1000)
 
     def __unicode__(self):
         return self.answer

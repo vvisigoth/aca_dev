@@ -21,7 +21,7 @@
                 </div>
                 <ul>
                     <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
-                    <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/answerbaseprototype.html" class="thisPage">Answers</a></li>
+                    <li><a href="/questions" class="thisPage">Answers</a></li>
                     <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/coursetheaterprototype.html" >Course</a></li>
                     <li><a href="">Profile</a></li>
                 </ul>
@@ -29,7 +29,8 @@
         </div>
         <div id="content" class="col-full">
             <div id="main" class="fullwidth">
-                <div id="info" class="post">
+                <div id="singleAnswerContentMain" class="results">
+                    <h2 id="answerListHeader">Ask a New Question</h2>
                     <div id="newQuestion">
                         <form action="newquestionsubmit" method="post" accept-charset="utf-8">
                             {% csrf_token %}

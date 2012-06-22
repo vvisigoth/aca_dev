@@ -20,7 +20,7 @@
                 </div>
                 <ul>
                     <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
-                    <li><a href="/questions" class="thisPage">Answers</a></li>
+                    <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/answerbaseprototype.html" class="thisPage">Answers</a></li>
                     <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/coursetheaterprototype.html">Course</a></li>
                     <li><a href="">{{ user }}</a></li>
                 </ul>
@@ -29,6 +29,7 @@
         <div id="content" class="col-full">
             <div id="main" class="fullwidth">
                 <div id="singleAnswerContentMain" class="results">
+                    <h2 id="answerListHeader">Ask a New Question</h2>
                     <h2 id="answerListHeader1">{{ question.question }}</h2>
                     <div id="questionExcerpt">
                         {{ question.explanation }}
@@ -55,7 +56,7 @@
                 </div>
                 <div id="answerSidebar" class="sidebarResults">
                     <div class="sidebarMenu">
-                    <h2 id="sidebarHeader">Recently Asked</h2>
+                    <h3>Recently Asked</h3>
                     <ul>
                             <li class="resultTitle"><a href="">An answer title</a></li>
                             <ul>
@@ -71,7 +72,21 @@
                             </ul>
                         </ul>
                     </div>
-                    
+                    <div class="sidebarMenu">
+                    <ul>
+                            <li class="resultTitle"><a href="">An answer title</a></li>
+                            <ul>
+                                <li class="resultExcerpt">the first line of an answer</li>
+                            </ul>
+                            <li class="resultTitle"><a href="">An answer title</a></li>
+                            <ul>
+                                <li class="resultExcerpt">the first line of an answer</li>
+                            </ul>
+                            <li class="resultTitle"><a href="">An answer title</a></li>
+                            <ul>
+                                <li class="resultExcerpt">the first line of an answer</li>
+                            </ul>
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -41,12 +41,35 @@
             { # Show some example queries to rum #}
         {% endif %}
     </form>
+    <div id="target">
+        TARGET
+    </div>
+    <div id="results">
+    </div>
 {% endblock %}
 
 <script>
+    $(document).ready(function (){
     $(function() {
         $( "#id_q" ).autocomplete({
             source: "../autocomplete/"
         });
     });
+    $("#target").click(function(){
+        //alert('yo');
+        $.ajax({
+            url: "searchjson/?q=who",
+            success: function(data){
+                //var j = $.parseJSON( data );
+                //alert j;
+                $.each(data, function(key, element) {
+                    alert(element['url']);
+                    alert(element['title']);
+                    $("#results").html("<ul><li>" + element['title'] + "</li><ul>")
+                });
+            }
+
+        });
+    });
+});
 </script>

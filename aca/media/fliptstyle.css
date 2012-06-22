@@ -56,7 +56,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover  {text-de
 }
 
 .col-full  { 
-    width: 970px; 
+    width: 1025px;
     margin: 0 auto; 
 }
 
@@ -108,7 +108,7 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover  {text-de
 }
 
 #main.fullwidth  { 
-    width: 970px; 
+    width: 1025px;
     margin-top: 25px;
 }
 
@@ -259,11 +259,23 @@ span.answeredBy:hover {
     text-align: center;
     padding: .3em; 
 }
-#answerListHeader, #answerListHeader1 {
+#answerListHeader, #answerListHeader1, #sidebarHeader {
     padding: .5em;
     margin: 0;
+    margin-bottom: .8em;
     border-bottom: solid 1px lightgrey;
 }
+
+#sidebarHeader {
+    text-align: center;
+    padding-bottom: 17px;
+}
+
+
+#sidebarHeader h2 {
+    
+}
+
 
 hr {
     width: 75%;
@@ -376,7 +388,7 @@ span.up {
     cursor: pointer;
 }
 
-#questionBar form #tags, #newQuestion input[type="text"], #newQuestion textarea, #newAnswerSubmit textarea {
+#questionBar form #tags, #newQuestion input[type="text"], #newQuestion textarea, #newAnswerSubmit textarea, #abasesearch {
     font-family: 'Droid Sans', Arial, sans-serif;
     margin-left: 10px;
     /*
@@ -385,6 +397,15 @@ span.up {
     width: 690px;
     color: black;
     border: solid 2px #efefef;
+}
+#newQuestion input[type="text"], #newQuestion textarea {
+    width: 95%;
+}
+#abasesearch {
+    width: 80%;
+    display: inline;
+    margin: 2px 0 10px 5px;
+
 }
 #newAnswerSubmit textarea {
     width: 95%;
@@ -406,7 +427,7 @@ span.up {
 #newQuestionSubscribe input[type="checkbox"] {
 }
 
-#questionBar #questionSubmit, #newQuestionSubmit, #newQuestionCancel, #newAnswerSubmitButton, #newAnswerCancelButton, #newQuestionLink, #newQuestionCancelLink {
+#questionBar #questionSubmit, #newQuestionSubmit, #newQuestionCancel, #newAnswerSubmitButton, #newAnswerCancelButton, #newQuestionLink, #newQuestionCancelLink, #abasesubmit {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;  
@@ -426,6 +447,12 @@ span.up {
     border: 0;
     margin-bottom: 5px;
 }
+#abasesubmit {
+    display: inline;
+    float: right;
+    margin-top: 2px;
+}
+
 #newQuestionLink {
     padding: .2em;
     color: black;
@@ -460,7 +487,8 @@ span.up {
 }
 .answer {
     margin: 2em 2em 2em 0;
-    padding: 1em;
+    padding: 1em 1em 1.5em 1em;
+
     font-family: 'Droid Sans', Arial, sans-serif;
     border-bottom: solid 1px white;
 }
@@ -546,10 +574,14 @@ span.up {
 
 #answerSidebar {
     min-height: 400px;
-    width: 260px;
+    width: 272px;
     float: right;
+    margin: 10px
     padding: 0;
+    /*
     display: none;
+    
+    */
 }
 
 .sidebarMenu {
@@ -563,8 +595,11 @@ span.up {
     border-radius: 10px;
     background-color: #fff; 
     border: 5px solid #efefef; 
-    margin: 0 0 20px 0;
+    margin: 0 10px 20px 0;
+    padding: .7em;
+    /*
     padding-top: .8em;
+    */
 }
 
 .sidebarMenu h3 {

@@ -20,8 +20,18 @@ def newquestion(request):
 def newquestionsubmit(request):
     askedBy = User.objects.get(pk=request.user.id)
     p = Question(question = request.POST['questionTitle'], explanation = request.POST['questionBody'], askedBy = askedBy)
+    try:
+        if request.POST['subscribe'] == 'subscribe':
+            followers = p.followers
+            p.followers = followers + str(request.user.id)
+    except:
+        pass
     p.save()
     return HttpResponseRedirect(reverse('answerbase.views.index'))
+
+def follow(request, q_id):
+    #write the follow function here, should just need q_id and .user
+    return HttpResponse("You followed")
 
 def question(request, q_id):
     question = Question.objects.get(id=q_id)
@@ -56,8 +66,8 @@ def searchjson(request):
             value = request.GET[u'q']
             if len(value) > 2:
                 ## Could probably just use the non-autocomplete ver of SearchQuerySet, because this might return too many results
-                model_results =SearchQuerySet().autocomplete(content_auto=value)
-            ##Heres where you define the format of JSON
+                #model_results =SearchQuerySet().filter(content=value)
+                model_results = SearchQuerySet().autocomplete(content_auto=value) ##Heres where you define the format of JSON
                 results = [ { 'title': str(x.object.__unicode__()), 'url': x.object.get_absolute_url() } for x in model_results ]
     json = simplejson.dumps(results)
     return HttpResponse(json, mimetype='application/json')
@@ -82,11 +92,20 @@ def votesubmit(request):
     dest = request.POST['dest']
     a_id = request.POST['a_id']
     direction = request.POST['direction']
-    if dest == "answer":
-        if direction == "up":
-            Answer.objects.get(pk=a_id).voteup()
-        else:
-            Answer.objects.get(pk=a_id).votedown()
+    user = str(request.user.id)
+    #TODO logic to check if user has already voted
+    a = Answer.objects.get(pk=a_id)
+    if user not in a.voted.split(','):
+        if dest == "answer":
+            if direction == "up":
+
+                a.voteup()
+                a.voted += user + ','
+                a.save()
+            else:
+                a.votedown()
+                a.voted += user + ','
+                a.save()
     else:
         """
         if direction == "up":
@@ -95,4 +114,4 @@ def votesubmit(request):
             Question.objects.get(pk=a_id).votedown()
             """
 
-    return HttpResponse('hey, %s, you successfully voted %s %s %s' % (request.user, dest, a_id, direction))
+    return HttpResponse('hey, %s, you successfully voted %s %s %s ' % (request.user, dest, a_id, direction))

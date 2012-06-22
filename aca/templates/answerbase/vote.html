@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <form action="votesubmit" method="post" accept-charset="utf-8">
     {% csrf_token %}
     <label for="a_id">id</label>
@@ -6,8 +7,36 @@
     <input type="text" name="dest" value="">
     <label for="direction">direction</label>
     <input type="text" name="direction" value="">
+    <<input type="checkbox" name="subscribe" value="yes">
     
 
 
 <p><input type="submit" value="Continue &rarr;"></p>
 </form>
+<div id="up">
+    UP
+</div>
+<div id="down">
+    DOWN 
+</div>
+
+<script>
+    $(document).ready(function(){
+        var csrf_token = "{{ csrf_token }}";
+        $("#down").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "votesubmit",
+            data: {dest: "answer", a_id: "1", direction: "down", csrfmiddlewaretoken: csrf_token}
+        })
+    });
+        $("#up").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "votesubmit",
+            data: {dest: "answer", a_id: "1", direction: "up", csrfmiddlewaretoken: csrf_token}
+        })
+    });
+    });
+
+</script>

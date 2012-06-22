@@ -43,8 +43,15 @@
                     </ul>
                 </div>
                 <div id="answerSidebar" class="sidebarResults">
+                    <form  action="http://localhost:8000/search/" method="get" accept-charset="utf-8">
+                        <input id="abasesearch" type="text" name="q" value="" />
+                        
+                    
+                    
+                    <input id="abasesubmit" type="submit" value=" ? " />
+                    </form>
                     <div class="sidebarMenu">
-                    <h3>Recently Asked</h3>
+                    <h2 id="sidebarHeader">Recently Asked</h2>
                     <ul>
                             <li class="resultTitle"><a href="">An answer title</a></li>
                             <ul>
@@ -60,21 +67,6 @@
                             </ul>
                         </ul>
                     </div>
-                    <div class="sidebarMenu">
-                    <ul>
-                            <li class="resultTitle"><a href="">An answer title</a></li>
-                            <ul>
-                                <li class="resultExcerpt">the first line of an answer</li>
-                            </ul>
-                            <li class="resultTitle"><a href="">An answer title</a></li>
-                            <ul>
-                                <li class="resultExcerpt">the first line of an answer</li>
-                            </ul>
-                            <li class="resultTitle"><a href="">An answer title</a></li>
-                            <ul>
-                                <li class="resultExcerpt">the first line of an answer</li>
-                            </ul>
-                        </ul>
                     </div>
                 </div>
             </div>
