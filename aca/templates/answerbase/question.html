@@ -35,7 +35,7 @@
                     </div>
                         <div id="answers">
                             {% for answer in answers %}
-                            <div id="1" class="answer">
+                            <div id="{{ answer.id }}" class="answer">
                                 <div class="voteBox">
                                     <span class="up">up</span><span class="votes">{{ answer.votes }}</span><span class="down">down</span>
                             </div>
@@ -84,4 +84,31 @@
         -->
     </div>
 </body>
+<script>
+    $(document).ready(function(){
+        // changes the vote appearance. Still needs to send POST to server to change actual vote count
+        var votelog = [];
+        $(".up").click(function(){
+            var id = $(this).parent().parent().attr("id");
+                if ($.inArray(id, votelog) == -1){
+                var i = parseInt($(this).next().text());
+                $(this).next().text(i + 1);
+                votelog.push(id);
+            };
+            //alert(votelog);
+            //alert(votelog.length);
+            //alert($.isArray(votelog));
+            //alert($.inArray(id, votelog));
+    });
+        $(".down").click(function(){
+            var id = $(this).parent().parent().attr("id");
+                if ($.inArray(id, votelog) == -1){
+                var i = parseInt($(this).prev().text());
+                $(this).prev().text(i - 1);
+                votelog.push(id);
+            }
+    });
+
+    });
+</script>
 </html>
