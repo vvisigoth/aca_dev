@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from answerbase.models import Question, Post, Answer
+from answerbase.models import Question, Post, Answer, UserProfile
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
@@ -12,6 +12,12 @@ def index(request):
     user = request.user
     question_list = Question.objects.all()
     return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list })
+
+def profile(request):
+    user = request.user
+    userprofile = UserProfile.objects.get(user=request.user.id)
+    return render_to_response('answerbase/profile.html', {'user':user, 'userprofile': userprofile})
+    #return HttpResponse(UserProfile.objects.get(user=request.user.id))
 
 def newquestion(request):
     user = request.user

@@ -23,7 +23,7 @@
                     <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
                     <li><a href="/questions" class="thisPage">Answers</a></li>
                     <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/coursetheaterprototype.html" >Course</a></li>
-                    <li><a href="">Profile</a></li>
+                    <li><a href="/accounts/profile">{{ user.username }}</a></li>
                 </ul>
             </div>
         </div>
@@ -32,7 +32,7 @@
                 <div id="singleAnswerContentMain" class="results">
                     <h2 id="answerListHeader">Ask a New Question</h2>
                     <div id="newQuestion">
-                        <form action="newquestionsubmit" method="post" accept-charset="utf-8">
+                        <form id="newquestionsubmit" action="newquestionsubmit" method="post" accept-charset="utf-8">
                             {% csrf_token %}
                             <input type="text" id="questionTitle" name="questionTitle" value="" />
                             <div>
@@ -74,5 +74,60 @@
         </div>
     </div>
 </body>
+<script>
+$(document).ready(function(){
+        var instructions = "A new question? How exciting!"
+        var instructions2 = "Make sure to phrase your question as a question as a question..."
+        var bodyError = "A little explanation, if you please!";
+        var titleError = "Got to submit a question, bud";
+        $("textarea").val(instructions);
+        $("#questionTitle").val(instructions2);
+        $("textarea").css('color', 'gray');
+        $("#questionTitle").css('color', 'gray');
+        
 
+//Intercept form submit
+        $("#newquestionsubmit").submit(function(){
+            if ($("textarea").val() == instructions){
+                //alert('Got to submit something!');
+                $("textarea").val(bodyError);
+                $("textarea").css('color', 'red');
+                return false;
+                } 
+            if ($("#questionTitle").val() == instructions2){
+                $("#questionTitle").val(titleError);
+                $("#questionTitle").css('color', 'red');
+                return false;
+            }
+            });
+            //instructions go here
+        $("textarea").focus(function(){
+            window.hasError = 0;
+            if ( $("textarea").val() == instructions || $("textarea").val() == bodyError ){
+                $("textarea").val("");
+                $("textarea").css('color', 'black');
+            }
+            });
+        $("textarea").blur(function(){
+            if ( $("textarea").val() == "" ){
+                $("textarea").css('color', 'grey');
+                $("textarea").val(instructions);
+            }
+            });
+        $("#questionTitle").focus(function(){
+            window.hasError = 0;
+            if ( $("#questionTitle").val() == instructions2 ){
+                $("#questionTitle").val("");
+                $("#questionTitle").css('color', 'black');
+            }
+            });
+        $("#questionTitle").blur(function(){
+            if ( $("#questionTitle").val() == "" ){
+                $("#questionTitle").css('color', 'grey');
+                $("#questionTitle").val(instructions2);
+            }
+            });
+        });
+
+    </script>
 </html>

@@ -22,36 +22,22 @@
                     <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
                     <li><a href="/questions" class="thisPage">Answers</a></li>
                     <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/coursetheaterprototype.html">Course</a></li>
-                    <li><a href="/accounts/profile">{{ user }}</a></li>
+                    <li><a href="/accounts/profile">{{ user.username }}</a></li>
                 </ul>
             </div>
         </div>
         <div id="content" class="col-full">
             <div id="main" class="fullwidth">
                 <div id="singleAnswerContentMain" class="results">
-                    <h2 id="answerListHeader1">{{ question.question }}</h2>
+                    <h2 id="answerListHeader1">{{ user.username }}</h2>
                     <div id="questionExcerpt">
-                        {{ question.explanation }}
+                        <h3>Bio</h3>
+                        {{ userprofile.bio }}
                     </div>
-                        <div id="answers">
-                            {% for answer in answers %}
-                            <div id="{{ answer.id }}" class="answer">
-                                <div class="voteBox">
-                                    <span class="up">up</span><span class="votes">{{ answer.votes }}</span><span class="down">down</span>
-                            </div>
-                            <li class="answertitle">{{ answer.answer }}</li><br><span class="answeredBy">{{ answer.answeredBy }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
+                    <h3><a href="/accounts/logout">LOGOUT</a></h3>
 
-                        <form id="newAnswerSubmit" action="newanswersubmit/{{ question.id }}" method="post" accept-charset="utf-8">
-                            {% csrf_token %}
-                        <textarea id= "newanswer" name="newanswer"></textarea> 
                     
                     
-                    <p><input id="newAnswerSubmitButton" type="submit" value="Answer" />
-                    <input id="newAnswerCancelButton" type="button" value="Whoops" /></p>
-                    </form>
                 </div>
                 <div id="answerSidebar" class="sidebarResults">
                     <div class="sidebarMenu">
