@@ -156,8 +156,18 @@ LOGGING = {
         },
     }
 }
+HAYSTACK_URL = os.environ.get("WEBSOLR_URL", '')
+
+HATSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+            'URL': HAYSTACK_URL,
+            },
+        }
 HAYSTACK_SITECONF = 'aca.site_search'
 
-HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_SEARCH_ENGINE = 'solr'
 
-HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
+HAYSTACK_SOLR_URL = 'http://localhost:8000/solr'
+
+#HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
