@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'answerbase.views.index'),
+    url(r'^$', 'coursetheater.views.index'),
     url(r'^questions/$', 'answerbase.views.index'),
     url(r'^newquestion/$', 'answerbase.views.newquestion'),
     url(r'^question/follow', 'answerbase.views.follow'),

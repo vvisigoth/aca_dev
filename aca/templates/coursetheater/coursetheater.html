@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>Course Theater Wireframe</title>
+    <link href='/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
+    <link href='tag-it/css/jquery.tag-it.css' rel='stylesheet' type='text/css'/>
+    <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
+    <script type="text/javascript" src='/media/flipt.js' charset="utf-8"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="navigation">
+            <div class="col-full">
+                <div id="logo">
+                </div>
+                <ul>
+                    <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
+                    <li><a href="/questions">Answers</a></li>
+                    <li><a href="/" class="thisPage">Course</a></li>
+                    <li><a href="">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content" class="col-full">
+            <div id="announce">
+                <span>
+                        Looks like that's a new question. Go ahead and fill in the form with the question and some explanation and we'll get it answered in a jiffy. Make sure to subscribe to be notified when it's answered!
+                </span>
+            </div>
+            <div id="main" class="fullwidth">
+                <div class="post">
+                    <div id="vidContainer">
+                        <div id="vid">
+                            <iframe id="courseVid" width="710" height="400" src="http://www.youtube.com/embed/qP1Z3M9G1j0" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <div id="vidList">
+                            <h3 id="vidListHeader"> Clip Module </h3>
+                            <ul>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="vidNav">
+                    <ul>
+                        <li id="prev">Previous</li>
+                        <li id="next">Next</li>
+                    </ul>
+                </div>
+                    <div id="questionBar">
+                        <div class="ui-widget">
+                       <form id="questionAsk" action="submitQuestion" method="get" accept-charset="utf-8">
+                           <p><input id="tags" type="text" onfocus="if(this.value == 'Have a question? Ask it here!'){ this.value = ''; }" onblur="if(this.value ==''){ this.value = 'Have a question? Ask it here!';}" value="Have a question? Ask it here!" /><input id="questionSubmit" type="submit" name="q" value="Ask Away" /></p>
+                       </form>
+                        </div>
+                    </div>
+                <div id="info" class="post">
+                    <div id="queryResults">
+                    <div class="results">
+                        <ul id="queryResultsUl">
+                        </ul>
+                    </div>
+                    </div>
+                    <div id="newQuestion">
+                        <form action="newQuestionSubmit" method="post" accept-charset="utf-8">
+                            <input type="text" id="questionTitle" name="questionTitle" value="" />
+                            <div>
+                                <textarea id="questionBody" name="questionBody" rows="8" cols="40"></textarea>
+                            
+                         </div>
+                         <!--
+                         the base html for a tagging system
+                         <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
+                            <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all">
+                            <span class="tagit-label">Tag1</span>
+                            <a class="close"><span class="ui-icon ui-icon-close"></span></a>
+                            <input type="hidden" style="display:none;" value="Tag1" name="item[tags][]"/>
+                            </li>
+                            <li class="tagit-choice ui-widget-content ui-state-default ui-corner-all">
+                            <span class="tagit-label">Tag2</span>
+                            <a class="close"><span class="ui-icon ui-icon-close"></span></a> 
+                            <input type="hidden" style="display:none;" value="Tag2" name="item[tags][]"/>
+                            </li>
+                            <li class="tagit-new">
+                            <input type="text" class="ui-widget-content ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"/>
+                            </li>
+                            </ul>
+                            -->
+                        <p><input id="newQuestionSubmit" type="submit" value="Post Question" />
+
+                        <input id="newQuestionCancel" type="button" value="Cancel" />
+                        <label>Subscribe to this question?</label>
+                        <input id="newQuestionSubscribe" type="checkbox" name="subscribe" value="subscribe" /></p>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div id="footer">
+            <div id="main" class="fullwidth">
+            </div>
+        </div>
+    </div>
+</body>
+    <script>
+    </script>
+
+</html>
