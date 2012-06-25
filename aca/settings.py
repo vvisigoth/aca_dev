@@ -174,6 +174,7 @@ HAYSTACK_SEARCH_ENGINE = 'solr'
 
 #HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
 
+
 #Will use dev_settings  on development server
 try: 
     from dev_settings import *

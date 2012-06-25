@@ -11,7 +11,7 @@
     <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
-    <script type="text/javascript" src='/media/flipt.js' charset="utf-8"></script>
+    <!-- <script type="text/javascript" src='/media/flipt.js' charset="utf-8"></script> -->
 </head>
 <body>
     <div id="container">
@@ -55,8 +55,8 @@
                 </div>
                     <div id="questionBar">
                         <div class="ui-widget">
-                       <form id="questionAsk" action="submitQuestion" method="get" accept-charset="utf-8">
-                           <p><input id="tags" type="text" onfocus="if(this.value == 'Have a question? Ask it here!'){ this.value = ''; }" onblur="if(this.value ==''){ this.value = 'Have a question? Ask it here!';}" value="Have a question? Ask it here!" /><input id="questionSubmit" type="submit" name="q" value="Ask Away" /></p>
+                       <form id="questionAsk" action="search" method="get" accept-charset="utf-8">
+                           <p><input id="tags" name="q"type="text" onfocus="if(this.value == 'Have a question? Ask it here!'){ this.value = ''; }" onblur="if(this.value ==''){ this.value = 'Have a question? Ask it here!';}" value="Have a question? Ask it here!" /><input id="questionSubmit" type="submit"  value="Ask Away" /></p>
                        </form>
                         </div>
                     </div>
@@ -110,6 +110,13 @@
     </div>
 </body>
     <script>
+    $(document).ready(function(){
+        //alert('ping')
+        $("#tags").autocomplete({
+            source: ["this", "that"]
+        })
+    });
+        
     </script>
 
 </html>

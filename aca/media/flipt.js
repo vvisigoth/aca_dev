@@ -93,12 +93,12 @@ $(document).ready(function(){
         // Populate Answer Page
         
         // Autocomplete 
-    $(function() {
-        $( "#tags" ).autocomplete({
+    //$(function() {
+        //$( "#tags" ).autocomplete({
         
-            source: tags
-        });
-    });
+            //source: tags
+        //});
+    //});
         // Slide down results
         // Slide down announcements
         $("#logo").click(function(){
