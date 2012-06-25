@@ -33,34 +33,10 @@
         <div id="content" class="col-full">
             <div id="main" class="fullwidth">
                 <div id="singleAnswerContentMain" class="results">
-                    {% if followed == "yes" %}
-                    <span class="followbutton followedbutton">Followed</span>
-                    {% else %}
-                    <span class="followbutton">Follow</span>
-                    {% endif %}
-                    <h2 id="answerListHeader1">{{ question.question }}</h2>
-                    <div id="questionExcerpt">
-                        {{ question.explanation }}
-                    </div>
-                        <div id="answers">
-                            {% for answer in answers %}
-                            <div id="{{ answer.id }}" class="answer">
-                                <div class="voteBox">
-                                    <span class="up">up</span><span class="votes">{{ answer.votes }}</span><span class="down">down</span>
-                            </div>
-                            <li class="answertitle">{{ answer.answer }}</li><br><span class="answeredBy">{{ answer.answeredBy }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
-
-                        <form id="newAnswerSubmit" action="newanswersubmit/{{ question.id }}" method="post" accept-charset="utf-8">
-                            {% csrf_token %}
-                        <textarea id= "newanswer" name="newanswer"></textarea> 
-                    
-                    
-                    <p><input id="newAnswerSubmitButton" type="submit" value="Answer" />
-                    <input id="newAnswerCancelButton" type="button" value="Whoops" /></p>
-                    </form>
+                    Something has gone horribly wrong. Maybe check the nav bar up top to see if it has something you want?
+                    <br>
+                    Otherwise, email me and I'll try to get this fixed right diddy (that means right now).
+                    anthony [at] abltnckbk [dot] com
                 </div>
                 <div id="answerSidebar" class="sidebarResults">
                     <div class="sidebarMenu">

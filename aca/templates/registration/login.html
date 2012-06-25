@@ -1,7 +1,30 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
+{% block extrastyle %}{% load adminmedia %}{{ block.super }}
+<!-- <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/login.css" />
+-->
+<link href='/media/flipstyle.css' rel=stylesheet' type = 'text/css'/>
+<style>
+    body {
+        font-family: 'Droid Sans', Arial, sans-serif;
+    
+    }
+    #container {
+    }
+    #header {
+        background-color: black;
+    }
+    #header #branding h1 {
+        color: white;
+        font-size: 2em;
+        font-weight: bold;
+    }
 
-{% block extrastyle %}{% load adminmedia %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/login.css" />{% endblock %}
+</style>
+{% endblock %}
+
+
+
 
 {% block bodyclass %}login{% endblock %}
 
@@ -28,6 +51,7 @@
 </form>
 
 <script type="text/javascript">
+
 document.getElementById('id_username').focus()
 </script>
 </div>

@@ -29,21 +29,45 @@ def newquestionsubmit(request):
     try:
         if request.POST['subscribe'] == 'subscribe':
             followers = p.followers
-            p.followers = followers + str(request.user.id)
+            p.followers = followers + ',' + str(request.user.id) 
     except:
         pass
     p.save()
     return HttpResponseRedirect(reverse('answerbase.views.index'))
 
-def follow(request, q_id):
-    #write the follow function here, should just need q_id and .user
-    return HttpResponse("You followed")
+def followtest(request):
+    return render_to_response('answerbase/follow.html', context_instance=RequestContext(request))
+
+def follow(request):
+    #write the follow function here, should just need q_id and should be able to get user from request
+    if request.method == "POST":
+        q_id = int(request.POST['q_id'])
+        q = Question.objects.get(pk = q_id)
+        followers = q.followers
+        if str(request.user.id) not in followers.split(','):
+            q.followers = followers + ',' + str(request.user.id) 
+            q.save()
+        #save q_id to questionsFollowing list in UserProfile
+        u = UserProfile.objects.get(user=User.objects.get(pk = request.user.id))
+        if u'%i' % int(q_id) not in u.questionsFollowing.split(','):
+            u.questionsFollowing += u',%i' % int(q_id)
+            u.save()
+    return HttpResponse(u.questionsFollowing)
 
 def question(request, q_id):
     question = Question.objects.get(id=q_id)
     answers = question.answer_set.all().order_by('-votes')
     user = request.user
-    return render_to_response('answerbase/question.html', {'question':question, 'answers': answers}, context_instance=RequestContext(request))
+    try:
+        u = UserProfile.objects.get(user=User.objects.get(pk = request.user.id))
+        if u'%i' % int(q_id)in u.questionsFollowing.split(','):
+            followed = "yes"
+        else:
+            followed = "no"
+    except:
+        followed = "no"
+
+    return render_to_response('answerbase/question.html', {'question':question, 'answers': answers, 'followed': followed}, context_instance=RequestContext(request))
 
 def newanswersubmit(request, q_id):
     answeredBy = User.objects.get(pk=request.user.id)

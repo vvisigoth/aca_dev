@@ -1,9 +1,37 @@
 <html>
     <head>
-        <title>Register</title>
+        <title>Register Here for the Ableton Cookbook Academy</title>
+        <link href='/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
+        <style>
+            #singleAnswerContentMain {
+                min-height: 50px;
+            }
+        </style>
+
     </head>
     <body>
-        <h2>Register</h2>
+        <div id="container">
+         <div id="navigation">
+            <div class="col-full">
+                <div id="logo">
+                </div>
+                <ul>
+                    <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
+                    <li><a href="/questions" class="thisPage">Answers</a></li>
+                    <li><a href="/Users/anthonyarroyo/Desktop/_FliptProject/coursetheaterprototype.html">Course</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/accounts/profile">{{ user.username }}</a></li>
+                    {% else %}
+                    <li><a href="/accounts/login/?next=/questions">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+       <div id="content" class="col-full">
+            <div id="main">
+                <div id="singleAnswerContentMain" class="results">
+        <h2>Register Yoself</h2>
+        For the moment, you'll have to make a new username and password for the Academy. We're working on merging the blog and Academy accounts. Patience, grasshopper.
         <form action="/accounts/register/" method="POST">{% csrf_token %}
             <table>
                 {{ form.as_table }}
@@ -12,6 +40,10 @@
                 <input type="submit" value="Submit" />
             </p>
         </form>
+    </div>
+    </div>
+</div>
+</div>
     </body>
 </html>
 

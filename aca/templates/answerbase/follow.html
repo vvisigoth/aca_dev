@@ -1,0 +1,35 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<form action="../question/follow" method="post" accept-charset="utf-8">
+    {% csrf_token %}
+    <label for="q_id">id</label>
+    <input type="text" name="q_id" value="">
+
+<p><input type="submit" value="Continue &rarr;"></p>
+</form>
+<div id="up">
+    UP
+</div>
+<div id="down">
+    DOWN 
+</div>
+
+<script>
+    $(document).ready(function(){
+        var csrf_token = "{{ csrf_token }}";
+        $("#down").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "votesubmit",
+            data: {dest: "answer", a_id: "1", direction: "down", csrfmiddlewaretoken: csrf_token}
+        })
+    });
+        $("#up").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "votesubmit",
+            data: {dest: "answer", a_id: "1", direction: "up", csrfmiddlewaretoken: csrf_token}
+        })
+    });
+    });
+
+</script>
