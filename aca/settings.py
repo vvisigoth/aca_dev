@@ -6,7 +6,7 @@ SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 # Django settings for aca project.
 
 from config import *
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -175,9 +175,7 @@ HAYSTACK_SEARCH_ENGINE = 'solr'
 #HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
 
 #Will use dev_settings  on development server
-"""
 try: 
     from dev_settings import *
-except:
+except ImportError:
     pass
-    """
