@@ -606,7 +606,7 @@ span.up {
     padding: .7em 0 0 0;
 }
 
-.followbutton {
+.followbutton, .qbutton {
     margin-top: 10px;
     margin-right: 17px;
     cursor: pointer;
@@ -626,10 +626,14 @@ span.up {
     background-image: -moz-linear-gradient(top, #D9B2D9, #F2E6F2);
     background-image: -webkit-linear-gradient(top, #D9B2D9, #F2E6F2);
 }
-.followbutton:hover {
+.qbutton {
+    margin-top: 2px;
+    margin-left: 10px;
+}
+.followbutton:hover, .qbutton:hover {
     border: solid 1px purple;
 }
-.followbutton:active, .followedbutton {
+.followbutton:active, .followedbutton, .qbutton:active {
     background-image: linear-gradient(top, #F2E6F2,#D9B2D9);
     background-image: -moz-linear-gradient(top, #F2E6F2, #D9B2D9);
     background-image: -webkit-linear-gradient(top, #F2E6F2, #D9B2D9);

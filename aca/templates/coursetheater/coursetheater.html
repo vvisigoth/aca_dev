@@ -6,12 +6,16 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title>Course Theater Wireframe</title>
-    <link href='/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
+    <!-- <link href='/media/fliptstyle.css' rel='stylesheet' type='text/css'/> -->
+    <link href='{{ MEDIA_URL }}/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
     <link href='tag-it/css/jquery.tag-it.css' rel='stylesheet' type='text/css'/>
     <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
-    <!-- <script type="text/javascript" src='/media/flipt.js' charset="utf-8"></script> -->
+    <script type="text/javascript" src='{{ MEDIA_URL}}/media/flipt.js' charset="utf-8"></script>
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token }}"
+    </script>
 </head>
 <body>
     <div id="container">
@@ -23,7 +27,11 @@
                     <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
                     <li><a href="/questions">Answers</a></li>
                     <li><a href="/" class="thisPage">Course</a></li>
-                    <li><a href="">Profile</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/accounts/profile">{{ user.username }}</a></li>
+                    {% else %}
+                    <li><a href="/accounts/login/?next=/questions">Login</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -56,7 +64,7 @@
                     <div id="questionBar">
                         <div class="ui-widget">
                        <form id="questionAsk" action="search" method="get" accept-charset="utf-8">
-                           <p><input id="tags" name="q"type="text" onfocus="if(this.value == 'Have a question? Ask it here!'){ this.value = ''; }" onblur="if(this.value ==''){ this.value = 'Have a question? Ask it here!';}" value="Have a question? Ask it here!" /><input id="questionSubmit" type="submit"  value="Ask Away" /></p>
+                           <p><input id="tags" name="q"type="text" onfocus="if(this.value == 'Have a question? Ask it here!'){ this.value = ''; }" onblur="if(this.value ==''){ this.value = 'Have a question? Ask it here!';}" value="Have a question? Ask it here!" /><input id="questionSubmit" type="submit"  value="Ask Away" /><span class="qbutton">New Question</span></p>
                        </form>
                         </div>
                     </div>
@@ -68,7 +76,9 @@
                     </div>
                     </div>
                     <div id="newQuestion">
-                        <form action="newQuestionSubmit" method="post" accept-charset="utf-8">
+                        {% if user.is_authenticated %}
+                        <form action="../newquestion/newquestionsubmit" id="newquestionsubmit" method="post" accept-charset="utf-8">
+                            {% csrf_token %}
                             <input type="text" id="questionTitle" name="questionTitle" value="" />
                             <div>
                                 <textarea id="questionBody" name="questionBody" rows="8" cols="40"></textarea>
@@ -98,6 +108,9 @@
                         <label>Subscribe to this question?</label>
                         <input id="newQuestionSubscribe" type="checkbox" name="subscribe" value="subscribe" /></p>
                         </form>
+                        {% else %}
+                        Got to be logged in to post a question. <a href="/accounts/login/?next=/">Login now?</a>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -108,14 +121,9 @@
             </div>
         </div>
     </div>
+    
 </body>
     <script>
-    $(document).ready(function(){
-        //alert('ping')
-        $("#tags").autocomplete({
-            source: ["this", "that"]
-        })
-    });
         
     </script>
 

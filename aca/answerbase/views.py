@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from haystack.query import SearchQuerySet
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -19,6 +20,7 @@ def profile(request):
     return render_to_response('answerbase/profile.html', {'user':user, 'userprofile': userprofile})
     #return HttpResponse(UserProfile.objects.get(user=request.user.id))
 
+@login_required
 def newquestion(request):
     user = request.user
     return render_to_response('answerbase/newquestion.html', {'user':user}, context_instance=RequestContext(request))
@@ -34,6 +36,7 @@ def newquestionsubmit(request):
         pass
     p.save()
     return HttpResponseRedirect(reverse('answerbase.views.index'))
+
 
 def followtest(request):
     return render_to_response('answerbase/follow.html', context_instance=RequestContext(request))
@@ -54,6 +57,7 @@ def follow(request):
             u.save()
     return HttpResponse(u.questionsFollowing)
 
+@login_required
 def question(request, q_id):
     question = Question.objects.get(id=q_id)
     answers = question.answer_set.all().order_by('-votes')
@@ -74,7 +78,8 @@ def newanswersubmit(request, q_id):
     p = request.POST['newanswer']
     a = Answer(question = Question.objects.get(pk=q_id), answer = p, answeredBy = answeredBy)
     a.save()
-    return HttpResponseRedirect(reverse('answerbase.views.question', args = q_id))
+    #return HttpResponseRedirect(reverse('answerbase.views.question', args = q_id))
+    return HttpResponseRedirect("/question/%s" % str(q_id))
 
 def autocomplete(request):
     results = []

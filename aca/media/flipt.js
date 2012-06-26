@@ -27,13 +27,14 @@ $(document).ready(function(){
         function postNewQuestion(title){
             $("#newQuestion").fadeOut();
             $("").replaceAll("#queryResults ul li");
-            $("#queryResultsUl").append( '<li id="questionSuccess" class="resultTitle">' + title + '</li><ul><li class="resultExcerpt"> <span class="noAnswer">No Answer...yet.</span></li></ul>');
+            //$("#queryResultsUl").append( '<li id="questionSuccess" class="resultTitle">' + title + '</li><ul><li class="resultExcerpt"> <span class="noAnswer">No Answer...yet.</span></li></ul>');
             // Most of this stuff will have to be modified on deploy, for prototype
-            var newQuestionJSON = [{"resultTitle": title, "resultExcerpt": "No Answer...yet.", "answeredBy": ""}];
-            tags.push(title);
+            //var newQuestionJSON = [{"resultTitle": title, "resultExcerpt": "No Answer...yet.", "answeredBy": ""}];
+            //tags.push(title);
             // Change the source for autocomplete after initialization
-            $("#tags").autocomplete("option", "source", tags);
-            resultsDictJSON[title] = newQuestionJSON;
+            //$("#tags").autocomplete("option", "source", tags);
+            //resultsDictJSON[title] = newQuestionJSON;
+            
             showResults();
             $("#tags").attr('value', "")
             $("#questionBar").slideDown();
@@ -71,15 +72,17 @@ $(document).ready(function(){
             }
         };
 
-        function resultsList(key) {
-            $.each(resultsDictJSON[key], function(i, item) {
-                if (item.resultExcerpt != "No Answer...yet."){
-                results.push('<li id="' + i + '" class="resultTitle">' + item.resultTitle + '</li><ul><li class="resultExcerpt">' + item.resultExcerpt + '<span class="answeredBy">' + item.answeredBy +'</span></li></ul>')
-                } else {
-                results.push('<li id="' + i + '" class="resultTitle">' + item.resultTitle + '</li><ul><li class="resultExcerpt"><span class="noAnswer">' + item.resultExcerpt + '</spane<span class="answeredBy">' + item.answeredBy +'</span></li></ul>')
-                }
+        function resultsList(data) {
+            $.each(data, function(i, item) {
+                //results.push('<li id="' + i + '" class="resultTitle">' + item['title'] + '</li><ul><li class="resultExcerpt">' + item.resultExcerpt + '<span class="answeredBy">' + item.answeredBy +'</span></li></ul>')
+                results.push('<li id="' + i + '" class="resultTitle"><a target="_blank" href="' + item['url'] +'">' + item['title'] + '</a></li>')
+                } 
+                //else {
+                //results.push('<li id="' + i + '" class="resultTitle">' + item.resultTitle + '</li><ul><li class="resultExcerpt"><span class="noAnswer">' + item.resultExcerpt + '</spane<span class="answeredBy">' + item.answeredBy +'</span></li></ul>')
+                //}
 
-            });
+            //});
+        )
             $("#queryResultsUl").append( results.join( '' ) );
             results = [];
         }
@@ -93,12 +96,12 @@ $(document).ready(function(){
         // Populate Answer Page
         
         // Autocomplete 
-    //$(function() {
-        //$( "#tags" ).autocomplete({
+    $(function() {
+        $( "#tags" ).autocomplete({
         
-            //source: tags
-        //});
-    //});
+            source: "../autocomplete"
+        });
+    });
         // Slide down results
         // Slide down announcements
         $("#logo").click(function(){
@@ -155,27 +158,49 @@ $(document).ready(function(){
             $("").replaceAll("#queryResults ul li");
             var submission = $("#tags").attr('value');
             if (submission != "Have a question? Ask it here!") {
-                if (submission in resultsDictJSON){
-                resultsList(submission);
-                showResults();
+                //if (submission in resultsDictJSON){
+                //resultsList(submission);
+                //showResults();
+                //return false;
+                //} 
+                //else {
+                //showNewQuestion();
+                //return false;
+                //}
+                $.get("../search/searchjson/", 
+                    {q: submission},
+                    function(data){
+
+                        //alert(data)
+                            //alert(item['url']);
+                            //alert(item['title']);
+                            //alert(data.length);
+                            resultsList(data);
+                            showResults();
+                        });
                 return false;
-                } else {
-                showNewQuestion();
-                return false;
-                }
-            } else {
+            } 
+            else {
             alert("You don't have any questions?");
             return false;
         }
         });
+        $(".qbutton").click(function(){
+                showNewQuestion();
+                });
         // Hide newQuestion on cancel
         $("#newQuestionCancel").click(function(){
             hideNewQuestion();
         });
         // Post a new question
-        $("#newQuestionSubmit").click(function(){
+        $("#newquestionsubmit").submit(function(){
             var title = $("#questionTitle").attr('value')
             postNewQuestion(title);
+            $.ajax({
+                type: "POST",
+                url:"../newquestion/newquestionsubmit",
+                data: {questionTitle: $("#questionTitle").val(), questionBody: $("#questionBody").val(), csrfmiddlewaretoken: csrf_token}
+            });
 
             return false;
         });

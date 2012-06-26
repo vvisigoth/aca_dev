@@ -6,7 +6,7 @@ SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 # Django settings for aca project.
 
 from config import *
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -59,7 +59,7 @@ MEDIA_ROOT = os.path.join(SITE_ROOT, 'media/')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
+MEDIA_URL = 'https://s3.amazonaws.com/TACLC'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -175,8 +175,9 @@ HAYSTACK_SEARCH_ENGINE = 'solr'
 #HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
 
 
+
 #Will use dev_settings  on development server
 try: 
-    from dev_settings import *
+    from local_settings.py import *
 except ImportError:
     pass
