@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     user = request.user
     question_list = Question.objects.all()
-    return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list })
+    return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list }, context_instance=RequestContext(request))
 
 def profile(request):
     user = request.user
