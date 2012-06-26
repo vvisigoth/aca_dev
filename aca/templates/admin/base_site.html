@@ -3,8 +3,11 @@
 
 {% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
 
-{% block branding %}
-<h1 id="site-name">Ableton Cookbook Academy</h1>
+{% block extrastyle %}
+<link href='{{ MEDIA_URL }}/media/fliptstyle.css' type='text/css' rel='stylesheet'/>
+<style>
+
+</style>
+
 {% endblock %}
 
-{% block nav-global %}{% endblock %}

@@ -1,15 +1,21 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
 {% block extrastyle %}{% load adminmedia %}{{ block.super }}
-<!-- <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/login.css" />
--->
-<link href='/media/flipstyle.css' rel=stylesheet' type = 'text/css'/>
 <style>
     body {
         font-family: 'Droid Sans', Arial, sans-serif;
     
     }
+    #footer {
+        display: none;
+    }
     #container {
+        width: 100%;
+    }
+    #content.colM {
+        width: 530px;
+        margin-left: auto;
+        margin-right: auto;
     }
     #header {
         background-color: black;
@@ -19,24 +25,57 @@
         font-size: 2em;
         font-weight: bold;
     }
+    .post {
+        height: 300px;
+        margin-top: 80px;
+        font-size: 3em;
+        border-radius: 20px;
+        padding: 1em;
+    }
+    #id_username, #id_password {
+        font-size: .7em;
+    }
+    div #user-tools {
+        color: lightpurple;
+    }
+    #user-tools a{
+    }
+    .submit-row input[type="submit"]{
+        font-size: 1em;
+        float: left;
+    }
+    .form-row {
+        width: 200px;
+    }
+    #login-form {
+        width: 450px;
+    }
+    #content-main.post {
+        width: 450px;
+    }
 
-</style>
+</style> 
 {% endblock %}
 
 
 
 
-{% block bodyclass %}login{% endblock %}
+    <div id="navigation">
+        <div class="col-full">
+        <div id="logo">
+        </div>
+        {% block breadcrumbs %}{% endblock %}   
+        </div>
+    </div>
 
-{% block content_title %}{% endblock %}
-
-{% block breadcrumbs %}{% endblock %}
 
 {% block content %}
 {% if error_message %}
 <p class="errornote">{{ error_message }}</p>
 {% endif %}
-<div id="content-main">
+<div id="content-main" class="post">
+<div id="logo">
+</div>
     <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
   <div class="form-row">
     <label for="id_username">{% trans 'Username:' %}</label> <input type="text" name="username" id="id_username" />
@@ -46,13 +85,13 @@
     <input type="hidden" name="this_is_the_login_form" value="1" />
   </div>
   <div class="submit-row">
-    <label>&nbsp;</label><input type="submit" value="{% trans 'Log in' %}" />
+      {{ password_change_url }}
+    <label>&nbsp;</label><input class="followbutton" type="submit" value="{% trans 'Log in' %}" />
   </div>
 </form>
-
+</div>
 <script type="text/javascript">
 
 document.getElementById('id_username').focus()
 </script>
-</div>
 {% endblock %}

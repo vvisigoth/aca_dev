@@ -15,10 +15,11 @@ def index(request):
     return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list }, context_instance=RequestContext(request))
 
 def profile(request):
-    user = request.user
-    userprofile = UserProfile.objects.get(user=request.user.id)
-    return render_to_response('answerbase/profile.html', {'user':user, 'userprofile': userprofile})
+    #user = request.user
+    #userprofile = UserProfile.objects.get(user=request.user.id)
+    #return render_to_response('answerbase/profile.html', {'user':user, 'userprofile': userprofile})
     #return HttpResponse(UserProfile.objects.get(user=request.user.id))
+    return HttpResponseRedirect(reverse('coursetheater.views.index'))
 
 @login_required
 def newquestion(request):
