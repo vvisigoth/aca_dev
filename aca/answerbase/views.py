@@ -103,10 +103,11 @@ def searchjson(request):
             if len(value) > 2:
                 ## Could probably just use the non-autocomplete ver of SearchQuerySet, because this might return too many results
                 #model_results =SearchQuerySet().filter(content=value)
-                model_results = SearchQuerySet().autocomplete(content_auto=value) 
+                try: 
+                    model_results = SearchQuerySet().autocomplete(content_auto=value) 
                 ##Heres where you define the format of JSON
-                results = [ { 'title': str(x.object.__unicode__()), 'url': x.object.get_absolute_url() } for x in model_results ]
-                if results == []:
+                    results = [ { 'title': str(x.object.__unicode__()), 'url': x.object.get_absolute_url() } for x in model_results ]
+                except:
                     results = [ {'title': 'No results found! Ask a new question up top', 'url': ''}]
     json = simplejson.dumps(results)
     return HttpResponse(json, mimetype='application/json')
