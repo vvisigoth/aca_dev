@@ -8,7 +8,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'anthonyarr@gmail.com'
-EMAIL_HOST_PASSWORD = 'RedeCorreio3.'
+EMAIL_HOST_PASSWORD = 'RedeCorreio6.'
 
 
 
