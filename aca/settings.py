@@ -160,7 +160,7 @@ LOGGING = {
 HAYSTACK_SOLR_URL = 'http://index.websolr.com/solr/0f4f76ec624'
 HAYSTACK_URL = os.environ.get("WEBSOLR_URL", '')
 
-HATSTACK_CONNECTIONS = {
+HAYSTACK_CONNECTIONS = {
         'default': {
             'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
             'URL': HAYSTACK_URL,
