@@ -54,6 +54,10 @@
     #content-main.post {
         width: 450px;
     }
+    #reg_link {
+        display: inline;
+        font-size: .5em;
+    }
 
 </style> 
 {% endblock %}
@@ -90,6 +94,7 @@
     <label>&nbsp;</label><input class="followbutton" type="submit" value="{% trans 'Log in' %}" />
   </div>
 </form>
+<span id="reg_link">No account yet? <a href="/accounts/register">Register here.</a></span>
 </div>
 <script type="text/javascript">
 
