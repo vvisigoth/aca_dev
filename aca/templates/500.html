@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>{{ question.question }}</title>
+    <link rel="shortcut icon" href="/Users/anthonyarroyo/Desktop/_FliptProject/favicon.ico">
+    <link href='{{ MEDIA_URL }}/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
+    <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
+</head>
+<body>
+    <div id="container">
+        <div id="navigation">
+            <div class="col-full">
+                <div id="logo">
+                </div>
+                <ul>
+                    <li><a href="http://www.anthonyarroyodotcom.com/theabletoncookbook">Blog</a></li>
+                    <li><a href="/questions" class="thisPage">Answers</a></li>
+                    <li><a href="/">Course</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="/accounts/profile">{{ user.username }}</a></li>
+                    {% else %}
+                    <li><a href="/accounts/login/?next=/questions">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div id="content" class="col-full">
+            <div id="main" class="fullwidth">
+                <div id="singleAnswerContentMain" class="results">
+                    Something has gone horribly wrong. Maybe check the nav bar up top to see if it has something you want?
+                    <br>
+                    Otherwise, email me and I'll try to get this fixed right diddy (that means right now).
+                    anthony [at] abltnckbk [dot] com
+                </div>
+                <div id="answerSidebar" class="sidebarResults">
+                    <div class="sidebarMenu">
+                    <h2 id="sidebarHeader">Recently Asked</h2>
+                    <ul>
+                            <li class="resultTitle"><a href="">An answer title</a></li>
+                            <ul>
+                                <li class="resultExcerpt">the first line of an answer</li>
+                            </ul>
+                            <li class="resultTitle"><a href="">An answer title</a></li>
+                            <ul>
+                                <li class="resultExcerpt">the first line of an answer</li>
+                            </ul>
+                            <li class="resultTitle"><a href="">An answer title</a></li>
+                            <ul>
+                                <li class="resultExcerpt">the first line of an answer</li>
+                            </ul>
+                        </ul>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 
+        <div id="footer">
+            <div id="main" class="fullwidth">
+            </div>
+        </div>
+        -->
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        // changes the vote appearance. Still needs to send POST to server to change actual vote count
+        var instructions = "Do you have an answer to add? Enter yours or vote on an existing one!";        
+        // load instructions in text area
+        $("textarea").val(instructions);
+        $("textarea").css('color', 'grey');
+
+        var csrf_token = "{{ csrf_token }}";
+        var votelog = [];
+        $(".up").click(function(){
+            var id = $(this).parent().parent().attr("id");
+                if ($.inArray(id, votelog) == -1){
+                var i = parseInt($(this).next().text());
+                $(this).next().text(i + 1);
+                votelog.push(id);
+            };
+            $.ajax({
+                type: "POST",
+                url: "votesubmit",
+                data: {dest: "answer", a_id: id, direction: "up", csrfmiddlewaretoken: csrf_token}
+            })
+            //alert(votelog);
+            //alert(votelog.length);
+            //alert($.isArray(votelog));
+            //alert($.inArray(id, votelog));
+    });
+        $(".down").click(function(){
+            var id = $(this).parent().parent().attr("id");
+                if ($.inArray(id, votelog) == -1){
+                var i = parseInt($(this).prev().text());
+                $(this).prev().text(i - 1);
+                votelog.push(id);
+                };
+                $.ajax({
+                type: "POST",
+                url: "votesubmit",
+                data: {dest: "answer", a_id: id, direction: "down", csrfmiddlewaretoken: csrf_token}
+            })
+    });
+    //ajax follow
+        $(".followbutton").click(function(){
+            //alert({{ question.id }});
+            $.ajax({
+                type: "POST",
+                url: "follow",
+                data: {q_id: {{ question.id }}, csrfmiddlewaretoken: csrf_token}
+                })
+            $(this).text('Followed');
+           // $(this).css('color', 'grey');
+            $(this).addClass('followedbutton');
+        });
+    //Intercept form submit for validation
+        $("#newAnswerSubmit").submit(function(){
+            if ($("#newanswer").val() == instructions){
+                alert('Got to submit something!');
+                return false;
+            }
+            });
+            //instructions go here
+        $("textarea").focus(function(){
+            if ( $("textarea").val() == instructions ){
+                $("textarea").val("");
+                $("textarea").css('color', 'black');
+            }
+            });
+        $("textarea").blur(function(){
+            if ( $("textarea").val() == "" ){
+                $("textarea").css('color', 'grey');
+                $("textarea").val(instructions);
+            }
+            });
+
+
+    });
+</script>
+</html>
