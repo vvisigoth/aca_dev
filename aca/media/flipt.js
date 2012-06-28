@@ -104,13 +104,13 @@ $(document).ready(function(){
     });
         // Slide down results
         // Slide down announcements
-        $("#logo").click(function(){
-            if( $("#announce").css('display') == 'none'){
-            $("#announce").slideDown();
-            } else {
-            $("#announce").fadeOut();
-        }
-        });
+        //$("#logo").click(function(){
+            //if( $("#announce").css('display') == 'none'){
+            //$("#announce").slideDown();
+            //} else {
+            //$("#announce").fadeOut();
+        //}
+        //});
         // Check if announcement has been seen already. Announcement can come to page as JSON and include an expiration date. Set a cookie for the last announcement, so that the script can see if it has already been seen.
 
         // Generate clickable VidList from JSON
