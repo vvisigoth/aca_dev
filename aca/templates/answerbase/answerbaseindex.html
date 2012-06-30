@@ -51,20 +51,14 @@
                     <input id="abasesubmit" type="submit" value=" ? " />
                     </form>
                     <div class="sidebarMenu">
-                    <h2 id="sidebarHeader">Recently Asked</h2>
+                    <h2 id="sidebarHeader">Notifications</h2>
                     <ul>
-                            <li class="resultTitle"><a href="">An answer title</a></li>
+                            {% for notification in notifications %}
+                            <li class="resultTitle"><a href="{{ notification.url }}">{{ notification.title }}</a></li>
                             <ul>
                                 <li class="resultExcerpt">the first line of an answer</li>
                             </ul>
-                            <li class="resultTitle"><a href="">An answer title</a></li>
-                            <ul>
-                                <li class="resultExcerpt">the first line of an answer</li>
-                            </ul>
-                            <li class="resultTitle"><a href="">An answer title</a></li>
-                            <ul>
-                                <li class="resultExcerpt">the first line of an answer</li>
-                            </ul>
+                            {% endfor %}
                         </ul>
                     </div>
                     </div>

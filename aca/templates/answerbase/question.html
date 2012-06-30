@@ -96,10 +96,15 @@
 <script>
     $(document).ready(function(){
         // changes the vote appearance. Still needs to send POST to server to change actual vote count
+        {% if user.is_authenticated %}
         var instructions = "Do you have an answer to add? Enter yours or vote on an existing one!";        
+        $("textarea").css('color', 'grey');
+        {% else %}
+        var instructions = "You have to be logged in to add an answer!"
+        $("textarea").css('color', 'red')
+        {% endif %}
         // load instructions in text area
         $("textarea").val(instructions);
-        $("textarea").css('color', 'grey');
 
         var csrf_token = "{{ csrf_token }}";
         var votelog = [];

@@ -7,12 +7,27 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from haystack.query import SearchQuerySet
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+NOTIFICATIONS = {}
 
 # Create your views here.
 def index(request):
     user = request.user
     question_list = Question.objects.all().order_by('-askedOn')
-    return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list }, context_instance=RequestContext(request))
+    """
+    try:
+        notifications = UserProfile.objects.get(user=User.objects.get(pk=user.id)).questionsFollowing
+        notifications = notifications.split(',')
+        notifications = [ Question.objects.get(pk=x) for x in notifications ]
+
+        notifications = [ {'title': x.question , 'url': x.get_absolute_url() } for x in notifications]
+    except:
+        notifications = [ {'title': "You're not following any questions yet!", 'url': "" } ]
+    """
+
+    #return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list, 'notifications':notifications }, context_instance=RequestContext(request))
+    return render_to_response('answerbase/answerbaseindex.html', {'user': user, 'question_list': question_list, }, context_instance=RequestContext(request))
+
 
 def profile(request):
     #user = request.user
@@ -36,6 +51,7 @@ def newquestionsubmit(request):
     except:
         pass
     p.save()
+    ##send_mail('This is a test email', 'This is a test message.', 'anthonyarr@gmail.com', ['anthonyarr@gmail.com'], fail_silently=True)
     return HttpResponseRedirect(reverse('answerbase.views.index'))
 
 
@@ -58,7 +74,6 @@ def follow(request):
             u.save()
     return HttpResponse(u.questionsFollowing)
 
-@login_required
 def question(request, q_id):
     question = Question.objects.get(id=q_id)
     answers = question.answer_set.all().order_by('-votes')
