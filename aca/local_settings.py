@@ -132,6 +132,8 @@ INSTALLED_APPS = (
     'haystack',
     'answerbase',
     'registration',
+    'kombu.transport.django',
+    'djcelery',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -174,3 +176,4 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 
 
 HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
+BROKER_BACKEND = 'django'
