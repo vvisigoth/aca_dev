@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from haystack.query import SearchQuerySet
 from django.contrib.auth.decorators import login_required
+from answerbase.tasks import NotificationEmailTask
 
 # Create your views here.
 def index(request):
@@ -36,6 +37,7 @@ def newquestionsubmit(request):
     except:
         pass
     p.save()
+    NotificationEmailTask.delay(request.user.username)
     return HttpResponseRedirect(reverse('answerbase.views.index'))
 
 

@@ -83,6 +83,7 @@ def create_user_profile(sender, **kwargs):
     if not UserProfile.objects.filter(user=u):
         UserProfile(user=u).save()
 
+
 post_save.connect(create_user_profile, sender=User)
 
 
