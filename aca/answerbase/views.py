@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from haystack.query import SearchQuerySet
 from django.contrib.auth.decorators import login_required
-from answerbase.tasks import NewQuestionEmailTask
+from answerbase.tasks import NewQuestionEmailTask, NewAnswerEmailTask
 
 # Create your views here.
 def index(request):
@@ -80,6 +80,7 @@ def newanswersubmit(request, q_id):
     p = request.POST['newanswer']
     a = Answer(question = Question.objects.get(pk=q_id), answer = p, answeredBy = answeredBy)
     a.save()
+    NewAnswerEmailTask.delay(q_id)
     #return HttpResponseRedirect(reverse('answerbase.views.question', args = q_id))
     return HttpResponseRedirect("/question/%s" % str(q_id))
 
