@@ -1,5 +1,7 @@
 import os
 import django
+import djcelery 
+djcelery.setup_loader()
 
 DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -132,6 +134,8 @@ INSTALLED_APPS = (
     'haystack',
     'answerbase',
     'registration',
+    #'kombu.transport.django',
+    'djcelery',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -174,3 +178,17 @@ HAYSTACK_SEARCH_ENGINE = 'whoosh'
 
 
 HAYSTACK_WHOOSH_PATH = os.path.join(SITE_ROOT, '/whoosh/index')
+"""
+BROKER_BACKEND = 'django'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_RESULT_BACKEND = 'amqp'
+BROKER_HOST = 'localhost'
+BROKER_HOST = 5672
+BROKER_USER = 'anthonyarroyo'
+BROKER_PASSWORD = 'thenewworld9'
+BROKER_VHOST = 'aca_dev'
+"""
+BROKER_TRANSPORT = 'amqplib'
+BROKER_URL = "amqp://guest:guest@localhost:5672//"
+CELERY_RESULT_BACKEND = 'amqp'
+CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 5
