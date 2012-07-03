@@ -10,7 +10,7 @@ class TestTask(PeriodicTask):
         logger.info("Running Test Task")
         return True
 """
-class NotificationEmailTask(Task):
+class NewQuestionEmailTask(Task):
     """
     notify admin that a user has asked a question
     """
