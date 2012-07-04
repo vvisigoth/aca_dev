@@ -1,8 +1,10 @@
 from datetime import date, timedelta 
 from celery.task import Task, PeriodicTask 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from answerbase.models import Question, UserProfile
 from django.contrib.auth.models import User
+from django.template.loader import get_template
+from django.template import Context
 
 """
 class TestTask(PeriodicTask):
@@ -28,7 +30,7 @@ class NewAnswerEmailTask(Task):
     emails followers of a question that a new answer has been added
     """
 
-    def run(self, q_id, **kwargs):
+    def run(self, q_id, username, **kwargs):
         q = Question.objects.get(pk=q_id)
         logger = self.get_logger(**kwargs)
         logger.info("Notifying followers that question %s has a new answer" % q.question)
