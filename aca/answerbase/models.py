@@ -83,8 +83,6 @@ def create_user_profile(sender, **kwargs):
     u=kwargs["instance"]
     if not UserProfile.objects.filter(user=u):
         UserProfile(user=u).save()
-    #TODO queue this shizz, so that it doesn't hang when making a new user
-    send_mail('A user, named %s, just registered' % u.username, 'This is a test message.', 'anthonyarr@gmail.com', ['anthonyarr@gmail.com'], fail_silently=True)
 
 
 post_save.connect(create_user_profile, sender=User)

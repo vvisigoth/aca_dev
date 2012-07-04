@@ -6,6 +6,13 @@ from django.contrib.auth.models import User
 from django.template.loader import get_template
 from django.template import Context
 
+#this can be fixed with env vars
+try:
+    from aca.local_settings import SITE_ROOT
+    SITE_ROOT = 'http://localhost:8000'
+except ImportError:
+    from aca.settings import SITE_ROOT
+    SITE_ROOT = 'http://www.abltnckbk.com'
 """
 class TestTask(PeriodicTask):
     run_every = timedelta(seconds=60)
@@ -30,13 +37,27 @@ class NewAnswerEmailTask(Task):
     emails followers of a question that a new answer has been added
     """
 
-    def run(self, q_id, username, **kwargs):
+    def run(self, q_id, **kwargs):
+        #Question
         q = Question.objects.get(pk=q_id)
+        url = SITE_ROOT + q.get_absolute_url()
+        #set up logging
         logger = self.get_logger(**kwargs)
         logger.info("Notifying followers that question %s has a new answer" % q.question)
+        # list of recipient information
         f = q.followers.split(',')
-        f_emails = [ User.objects.get(pk=int(x)).email for x in f if x != u'']
-        logger.info(f_emails)
-        if f_emails:
-           send_mail('A question you followed has a new answer! Huzzah!', 'Hello there! You wanted to be notified when the question %s had an answer, right? Well, youre in luck! Follow the link here to check it out! http://www.abltnckbk.com%s' % (q.question, q.get_absolute_url()), 'anthonyarr@gmail.com', f_emails, fail_silently=True)
+        followers = [ User.objects.get(pk=int(x)) for x in f if x != u'']
+        followers = [ (x.username, x.email) for x in followers ]
+        textemail = get_template('newansweremail.txt')
+        question =  q.question
+        d = Context({ 'url': url, 'question': question })
+        logger.info(followers)
+        for i in followers:
+            try:
+                subject, from_email, to = 'Hey, %s, a question you followed has a new answer!' % i[0], 'anthonyarr@gmail.com', [i[1]]
+                text_content = textemail.render(d)
+                msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+                msg.send()
+            except:
+                logger.info("%s doesn't have a valid email!" % i[0])
         return True
