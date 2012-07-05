@@ -54,9 +54,9 @@ class NewAnswerEmailTask(Task):
         logger.info(followers)
         for i in followers:
             try:
-                subject, from_email, to = 'Hey, %s, a question you followed has a new answer!' % i[0], 'anthonyarr@gmail.com', [i[1]]
+                subject, from_email, to = 'Hey, %s, a question you followed has a new answer!' % i[0], 'anthony@abltnckbk.com', [i[1]]
                 text_content = textemail.render(d)
-                msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+                msg = EmailMultiAlternatives(subject, text_content, from_email, to, headers={ 'Reply-To': 'anthony@abltnckbk.com'})
                 msg.send()
             except:
                 logger.info("%s doesn't have a valid email!" % i[0])
