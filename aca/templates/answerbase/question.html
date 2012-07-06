@@ -65,6 +65,7 @@
                 <div id="answerSidebar" class="sidebarResults">
                     <div class="sidebarMenu">
                     <h2 id="sidebarHeader">Recently Asked</h2>
+                    <div id="notifications">
                     <ul>
                             <li class="resultTitle"><a href="">An answer title</a></li>
                             <ul>
@@ -79,6 +80,7 @@
                                 <li class="resultExcerpt">the first line of an answer</li>
                             </ul>
                         </ul>
+                    </div>
                     </div>
                     
                     </div>
@@ -138,6 +140,10 @@
                 data: {dest: "answer", a_id: id, direction: "down", csrfmiddlewaretoken: csrf_token}
             })
     });
+        //notifications
+        $.get("http://localhost:8000/" + {{ user.id }} + "/feed", function(data){
+            alert(data);
+        });
     //ajax follow
         $(".followbutton").click(function(){
             //alert({{ question.id }});

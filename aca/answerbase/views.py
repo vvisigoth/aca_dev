@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from answerbase.tasks import NewQuestionEmailTask, NewAnswerEmailTask
 import time
 import logging
+
 #cache format = {u_id:[time_cached, [{news}]], u_id':...}
 newscache = {}
 def makefeed(u_id):
@@ -40,9 +41,12 @@ def profile(request):
 def userfeed(request, u_id):
     now = time.time()
     if u_id in newscache:
+        #set the cache expiration in seconds
         if now - newscache[u_id][0] < 600:
             logging.error('got it from the cache')
             json = simplejson.dumps(newscache[u_id][1])
+        else:
+            json = simplejson.dumps(makefeed(u_id))
     else:
         json = simplejson.dumps(makefeed(u_id))
     return HttpResponse(json, mimetype='application/json')
