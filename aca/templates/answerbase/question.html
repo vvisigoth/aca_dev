@@ -66,11 +66,13 @@
                     <div class="sidebarMenu">
                     <h2 id="sidebarHeader">Recently Asked</h2>
                     <div id="notifications">
+                            <!--
                             <div id="feed0" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
                             <div id="feed1" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
                             <div id="feed2" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
                             <div id="feed3" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
                             <div id="feed4" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
+                            -->
                     </div>
                     </div>
                     
@@ -87,6 +89,22 @@
     </div>
 </body>
 <script>
+    var delay = 2000;
+    var count = 10;
+    var showing = 8;
+    var i = 0;
+    function move(i) {
+        return function() {
+                $('#feed'+i).remove().css('display', 'none').prependTo('#notifications');
+        }
+    }
+    function shift() {
+        var toShow = (i + showing) % count;
+        $('#feed'+toShow).slideDown(1000, move(i));
+        $('#feed'+i).slideUp(1000, move(i));
+        i = (i + 1) % count;
+        setTimeout('shift()', delay);
+    } 
     $(document).ready(function(){
         // changes the vote appearance. Still needs to send POST to server to change actual vote count
         {% if user.is_authenticated %}
@@ -165,36 +183,17 @@
             }
             });
             //fetch userfeed and make notification list
-            $.get("http://localhost:8000/" + {{ user.id }} + "/feed", function(data){
+            //clearly use a different location for production
+            $.get("/" + {{ user.id }} + "/feed", function(data){
                 $.each(data, function(i, item){
-                    $('#notifications').append("<span class='resultTitle'><a href=" + item['url'] +"><span style='color:black;'>New Answer: </span>" + item['answer'] + "</a></span><span class='resultExcerpt' style='font-size:.9em;'>" + item['question'] + "</span><br><span class='answeredBy' style='float:right;'>" + item['date'] + "</span><br>");
-                    if (i > 10){
+                    $('#notifications').append("<div id='feed"+ i + "' style='display: none;'><span class='resultTitle'><a href=" + item['url'] +"><span style='color:black;'>New Answer: </span>" + item['answer'] + "</a></span><span class='resultExcerpt' style='font-size:.9em;'>" + item['question'] + "</span><br><span class='answeredBy' style='float:right;'>" + item['date'] + "</span><br></div>");
+                    if (i > 9){
                         return false
                     };
             });
             });
-
-            //change these css vals
-            //var delay = 2000;
-            //var count = 5;
-            //var showing = 4;
-            //var i = 0;
-            //function move(i) {
-                //return function() {
-                        //$('#feed'+i).remove().css('display', 'none').prependTo('#notifications');
-                //}
-            //}
-            //function shift() {
-                //var toShow = (i + showing) % count;
-                //$('#feed'+toShow).slideDown(1000, move(i));
-                //$('#feed'+i).slideUp(1000, move(i));
-                //i = (i + 1) % count;
-                //setTimeout('shift()', delay);
-            //}    
-                                                                                                                                          
-            //$(document).ready(function(){
-            //setTimeout('shift()', delay);
-        //});
+            //notification shift
+            setTimeout('shift()', delay);
 
     });
 </script>
