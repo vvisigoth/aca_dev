@@ -8,6 +8,19 @@ from django.utils import simplejson
 from haystack.query import SearchQuerySet
 from django.contrib.auth.decorators import login_required
 from answerbase.tasks import NewQuestionEmailTask, NewAnswerEmailTask
+import time
+import logging
+#cache format = {u_id:[time_cached, [{news}]], u_id':...}
+newscache = {}
+def makefeed(u_id):
+    up = UserProfile.objects.get(user = User.objects.get(pk=u_id))
+    logging.error('hit the db')
+    q_list = [Question.objects.get(pk=int(x)) for x in up.questionsFollowing.split(',') if x]
+    news_query = Answer.objects.filter(question__in = q_list).order_by('-answeredOn')
+    news = [ {'answer': str(x.answer), 'question': str(x.question), 'date': str(x.answeredOn), 'url': x.get_absolute_url()} for x in news_query ]
+    news = [ time.time(), news]
+    newscache[u_id] = news
+    return news[1]
 
 # Create your views here.
 def index(request):
@@ -25,11 +38,13 @@ def profile(request):
 #probably not the best way, should use post_save signals to make an activity stream, I think
 #will have to cache this or periodically update
 def userfeed(request, u_id):
-    up = UserProfile.objects.get(user = User.objects.get(pk=u_id))
-    q_list = [Question.objects.get(pk=int(x)) for x in up.questionsFollowing.split(',') if x]
-    news_query = Answer.objects.filter(question__in = q_list).order_by('-answeredOn')
-    news = [ {'answer': str(x.answer), 'question': str(x.question), 'date': str(x.answeredOn)} for x in news_query ]
-    json = simplejson.dumps(news)
+    now = time.time()
+    if u_id in newscache:
+        if now - newscache[u_id][0] < 600:
+            logging.error('got it from the cache')
+            json = simplejson.dumps(newscache[u_id][1])
+    else:
+        json = simplejson.dumps(makefeed(u_id))
     return HttpResponse(json, mimetype='application/json')
 
 
