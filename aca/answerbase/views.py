@@ -18,7 +18,7 @@ def makefeed(u_id):
     logging.error('hit the db')
     q_list = [Question.objects.get(pk=int(x)) for x in up.questionsFollowing.split(',') if x]
     news_query = Answer.objects.filter(question__in = q_list).order_by('-answeredOn')
-    news = [ {'answer': str(x.answer), 'question': str(x.question), 'date': str(x.answeredOn), 'url': x.get_absolute_url()} for x in news_query ]
+    news = [ {'answer': str(x.answer), 'question': str(x.question), 'date': str(x.answeredOn.strftime("%b %d %H:%M")), 'url': x.get_absolute_url()} for x in news_query ]
     news = [ time.time(), news]
     newscache[u_id] = news
     return news[1]

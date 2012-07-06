@@ -164,10 +164,13 @@
                 $("textarea").val(instructions);
             }
             });
-            //notifications
+            //fetch userfeed and make notification list
             $.get("http://localhost:8000/" + {{ user.id }} + "/feed", function(data){
                 $.each(data, function(i, item){
-                    $('#notifications').append("<span class='resultTitle'><a href=" + item['url'] +">" + item['answer'] + "</a></span><span class='answeredBy'>" + item['date'] + "</span><br>");
+                    $('#notifications').append("<span class='resultTitle'><a href=" + item['url'] +"><span style='color:black;'>New Answer: </span>" + item['answer'] + "</a></span><span class='resultExcerpt' style='font-size:.9em;'>" + item['question'] + "</span><br><span class='answeredBy' style='float:right;'>" + item['date'] + "</span><br>");
+                    if (i > 10){
+                        return false
+                    };
             });
             });
 
