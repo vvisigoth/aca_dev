@@ -22,6 +22,18 @@ def profile(request):
     #return HttpResponse(UserProfile.objects.get(user=request.user.id))
     return HttpResponseRedirect(reverse('coursetheater.views.index'))
 
+#probably not the best way, should use post_save signals to make an activity stream, I think
+#will have to cache this or periodically update
+def userfeed(request, u_id):
+    up = UserProfile.objects.get(user = User.objects.get(pk=u_id))
+    q_list = [Question.objects.get(pk=int(x)) for x in up.questionsFollowing.split(',') if x]
+    news_query = Answer.objects.filter(question__in = q_list).order_by('-answeredOn')
+    news = [ {'answer': str(x.answer), 'question': str(x.question), 'date': str(x.answeredOn)} for x in news_query ]
+    json = simplejson.dumps(news)
+    return HttpResponse(json, mimetype='application/json')
+
+
+
 @login_required
 def newquestion(request):
     user = request.user

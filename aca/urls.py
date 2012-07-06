@@ -26,6 +26,8 @@ urlpatterns = patterns('',
     url(r'^vote/$', 'answerbase.views.vote'),
     url(r'^followtest/$', 'answerbase.views.followtest'),
     url(r'^question/votesubmit', 'answerbase.views.votesubmit'),
+    url(r'^(?P<u_id>\d+)/feed', 'answerbase.views.userfeed'),
+
     # url(r'^$', 'aca.views.home', name='home'),
     # url(r'^aca/', include('aca.foo.urls')),
 
