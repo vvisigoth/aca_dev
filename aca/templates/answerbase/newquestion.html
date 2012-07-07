@@ -11,7 +11,7 @@
     <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
-    <!-- <script type="text/javascript" src='flipt.js' charset="utf-8"></script> -->
+ <script type="text/javascript" src="{{ MEDIA_URL }}/media/jquery.vticker.js"></script>   
 </head>
 <body>
     <div id="container">
@@ -67,9 +67,20 @@
                         <label>Subscribe to this question?</label>
                         <input id="newQuestionSubscribe" type="checkbox" name="subscribe" value="subscribe" /></p>
                         </form>
+                        
                     </div>
+                    
                 </div>
-                
+                <div id="answerSidebar" class="sidebarResults">
+                        <div class="sidebarMenu">
+                            <h2 id="sidebarHeader">Notifications</h2>
+                            <div class="notifications">
+                                <ul>
+                                    <!-- JS will insert userfeed here-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
         <div id="footer">
@@ -131,6 +142,27 @@ $(document).ready(function(){
                 $("#questionTitle").val(instructions2);
             }
             });
+//make notification list from User Feed
+        $.get("/" + {{ user.id }} + "/feed", function(data){
+            $.each(data, function(i, item){
+                $('.notifications ul').append("<li><span class='resultTitle'><a href='" + item['url'] + "'><span style='color:black;'>New Answer: </span>" + item['answer'] + "</a></span><span class='resultExcerpt' style='font-size: .9em;'>" + item['question'] + "</span><br><span class='answeredBy' style='float:right;'>" + item['date'] + "</span><br></li>");
+                if (i > 9){
+                    return false
+                };
+            });
+        });
+
+            //notification scroll
+        $('.notifications').vTicker({
+            speed: 500,
+            pause: 3000,
+            showItems: 8,
+            animation: 'fade',
+            mousePause: true,
+            height: 400,
+            direction: 'up'
+        });
+
         });
 
     </script>

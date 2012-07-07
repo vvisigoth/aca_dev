@@ -10,7 +10,9 @@
     <link href='{{ MEDIA_URL }}/media/fliptstyle.css' rel='stylesheet' type='text/css'/>
     <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script> 
+    <script type="text/javascript" src="{{ MEDIA_URL }}/media/jquery.vticker.js"></script>
 </head>
 <body>
     <div id="container">
@@ -64,15 +66,11 @@
                 </div>
                 <div id="answerSidebar" class="sidebarResults">
                     <div class="sidebarMenu">
-                    <h2 id="sidebarHeader">Recently Asked</h2>
-                    <div id="notifications">
-                            <!--
-                            <div id="feed0" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
-                            <div id="feed1" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
-                            <div id="feed2" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
-                            <div id="feed3" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
-                            <div id="feed4" class="resultTitle" style="display:none;"><a href="">An answer title</a></div>
-                            -->
+                    <h2 id="sidebarHeader">Notifications</h2>
+                    <div class="notifications">
+                        <ul>
+                            <!-- JS will insert userfeed here -->
+                        </ul>
                     </div>
                     </div>
                     
@@ -89,7 +87,7 @@
     </div>
 </body>
 <script>
-    var delay = 2000;
+    var delay = 1000;
     var count = 10;
     var showing = 8;
     var i = 0;
@@ -182,19 +180,26 @@
                 $("textarea").val(instructions);
             }
             });
-            //fetch userfeed and make notification list
-            //clearly use a different location for production
-            $.get("/" + {{ user.id }} + "/feed", function(data){
-                $.each(data, function(i, item){
-                    $('#notifications').append("<div id='feed"+ i + "' style='display: none;'><span class='resultTitle'><a href=" + item['url'] +"><span style='color:black;'>New Answer: </span>" + item['answer'] + "</a></span><span class='resultExcerpt' style='font-size:.9em;'>" + item['question'] + "</span><br><span class='answeredBy' style='float:right;'>" + item['date'] + "</span><br></div>");
-                    if (i > 9){
-                        return false
-                    };
+            //make notification list from User Feed
+        $.get("/" + {{ user.id }} + "/feed", function(data){
+            $.each(data, function(i, item){
+                $('.notifications ul').append("<li><span class='resultTitle'><a href='" + item['url'] + "'><span style='color:black;'>New Answer: </span>" + item['answer'] + "</a></span><span class='resultExcerpt' style='font-size: .9em;'>" + item['question'] + "</span><br><span class='answeredBy' style='float:right;'>" + item['date'] + "</span><br></li>");
+                if (i > 9){
+                    return false
+                };
             });
-            });
-            //notification shift
-            setTimeout('shift()', delay);
+        });
 
+            //notification scroll
+        $('.notifications').vTicker({
+            speed: 500,
+            pause: 3000,
+            showItems: 8,
+            animation: 'fade',
+            mousePause: true,
+            height: 400,
+            direction: 'up'
+        });
     });
 </script>
 </html>
