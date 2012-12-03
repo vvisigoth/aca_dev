@@ -1,3 +1,4 @@
 venv
 *.pyc
 aca/dev_settings.py
+*.swp
