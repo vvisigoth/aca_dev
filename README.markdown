@@ -6,18 +6,21 @@ The Ableton Cookbook Academy is a music production course built on a custom MOOC
 platform called Flipt. The Flipt platform consists of two parts: the Course 
 Theater and the Answerbase. The Course Theater is where students watch the video 
 content and ask questions. The Answerbase is a Q&A forum linked to the Course Theater. 
-The Answerbase allows students to upvote and downvote specific answers, as well 
-as subscribe to questions whose answers they are interested in. The MOOC platform 
-is built with Django, JavaScript, HTML and CSS.
+The Answerbase allows students to up-vote and down-vote specific answers, as well 
+as subscribe to questions whose answers they are interested in. 
 
-The Flipt platform and all the video content were built by Anthony P. Arroyo.
+The MOOC platform is built with Python, JavaScript, HTML and CSS. Additional 
+magic was provided by Django (Web framework for Python), Celery (Asynchronous 
+Message Queuing) and Solr (Search Indexing). The whole project is deployed on 
+Heroku. The Flipt platform and all the video content were built by Anthony P. 
+Arroyo.
 
 ## Features ##
 
 ### Course Theater ###
 
 The Course Theater presents video material in playlist format, along with "next" 
-and "previous" controls as well as "Autonext" (for playing all videos sequentially. 
+and "previous" controls as well as "Autonext" (for playing all videos sequentially). 
 The video functionality takes advantage of the YouTube API to control playback.
 
 ![Course Home](https://raw.github.com/alohagarage/alohagarage.github.com/master/static/CourseHome.png)
@@ -25,6 +28,7 @@ The video functionality takes advantage of the YouTube API to control playback.
 Conventional MOOC platforms require students to navigate to a different page in order 
 to search for answers to questions or to post new questions. In the Flipt platform, 
 students use an "Omnibox" beneath the video viewer to ask or find questions. 
+
 When a student has a question about the course material, they enter it into the 
 Omnibox. If a similar question has been asked, then it appears beneath the Omnibox. 
 If the student's question is new, then they can enter a new question and it will 
@@ -41,14 +45,14 @@ and answer open questions.
 ![Answerbase](https://raw.github.com/alohagarage/alohagarage.github.com/master/static/Answerbase.png)
 
 The Flipt Answerbase has a few extras, though. First, users can follow questions 
-which interest them. Flipt will alert them when a followed question has been 
-answered or edited. 
+which interest them, whether or not they've personally asked them. Flipt will 
+alert them when a followed question has been answered or edited. 
 
-Second, Flipt allows users to up and downvote answers to particular questions. 
-This means that the most popular (authoritative) question will always be displayed 
-directly underneath the question, but all answers will be displayed. This encourages 
-the student community to answer one another's questions and participate in picking 
-the best answers.
+Second, Flipt allows users to up- and down-vote answers to particular questions. 
+This means that the most popular (authoritative) answer to a question will 
+always be displayed directly underneath the question, but all other answers will 
+also be displayed. This encourages the student community to answer one another's 
+questions and participate in picking the best answers.
 
 ![Question Detail](https://raw.github.com/alohagarage/alohagarage.github.com/master/static/QuestionDetail.png)
 
